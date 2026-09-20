@@ -3,6 +3,8 @@
    Para mudar a identidade visual, troque apenas os --accent-*.
    ---------------------------------------------------------------- */
 :root {
+  color-scheme: light;
+
   --bg: #fbfbfa;
   --surface: #ffffff;
   --surface-muted: #f4f4f2;
@@ -50,6 +52,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    color-scheme: dark;
+
     --bg: #0e0e10;
     --surface: #161619;
     --surface-muted: #1d1d21;

@@ -269,6 +269,14 @@
   outline: none;
 }
 
+/* A lista aberta é desenhada pelo sistema, fora da árvore de estilos do
+   campo: sem cor própria, as opções herdariam a tinta clara sobre o fundo
+   branco padrão e ficariam invisíveis no tema escuro. */
+.field-control select option {
+  background: var(--surface);
+  color: var(--text);
+}
+
 /* Seta própria, já que a nativa some com o appearance: none. */
 .field-control:has(select)::after {
   content: "";
