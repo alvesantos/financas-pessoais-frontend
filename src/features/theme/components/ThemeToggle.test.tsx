@@ -106,3 +106,20 @@ describe("ThemeToggle", () => {
     setItem.mockRestore();
   });
 });
+
+describe("favicon", () => {
+  it("acompanha a troca de tema", async () => {
+    const user = userEvent.setup();
+    const link = document.createElement("link");
+    link.id = "favicon";
+    link.rel = "icon";
+    document.head.append(link);
+
+    renderToggle();
+    await user.click(screen.getByRole("button", { name: "Usar tema escuro" }));
+
+    expect(link.getAttribute("href")).toContain("mnemio-icon-light.webp");
+
+    link.remove();
+  });
+});

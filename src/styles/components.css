@@ -3,11 +3,10 @@
 /* ---------------------------------- marca ---------------------------------- */
 
 .logo {
-  display: grid;
-  place-items: center;
+  display: block;
   border-radius: var(--radius-sm);
-  background: var(--accent);
-  color: var(--accent-contrast);
+  /* A troca entre os dois arquivos acompanha a troca de tema. */
+  transition: opacity 0.25s var(--ease);
 }
 
 /* ---------------------------------- campos --------------------------------- */

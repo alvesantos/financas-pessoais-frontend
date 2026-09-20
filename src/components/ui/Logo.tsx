@@ -1,23 +1,23 @@
-/** Marca do produto: um gráfico ascendente reduzido ao essencial. */
+import { useTheme } from "../../features/theme/hooks/useTheme";
+
+/**
+ * Marca do Mnemio. O arquivo escuro é um ladrilho azul-marinho com o
+ * monograma claro, e o claro é o inverso — por isso o escuro vai no tema
+ * claro, e vice-versa: é o que mantém o contraste com o fundo.
+ */
 export function Logo({ size = 34 }: { size?: number }) {
+  const { theme } = useTheme();
+  const src = theme === "dark" ? "/mnemio-icon-light.webp" : "/mnemio-icon-dark.webp";
+
   return (
-    <span className="logo" style={{ width: size, height: size }} aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" width={size * 0.55} height={size * 0.55}>
-        <path
-          d="M4 16.5 9.5 11l3.5 3.5L20 7.5"
-          stroke="currentColor"
-          strokeWidth="2.1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M15.5 7.5H20V12"
-          stroke="currentColor"
-          strokeWidth="2.1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </span>
+    <img
+      className="logo"
+      src={src}
+      width={size}
+      height={size}
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+    />
   );
 }

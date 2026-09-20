@@ -30,7 +30,20 @@ export function resolveTheme(): Theme {
   return readStoredTheme() ?? systemTheme();
 }
 
+/** O par de ícones da marca, escolhido pelo contraste com o fundo. */
+export const themeIcons: Record<Theme, string> = {
+  light: "/mnemio-icon-dark.webp",
+  dark: "/mnemio-icon-light.webp",
+};
+
 /** Escreve o tema no <html>, que é de onde os tokens saem. */
 export function applyTheme(theme: Theme): void {
   document.documentElement.dataset.theme = theme;
+
+  // O favicon é trocado aqui e também pelo script em index.html, que roda
+  // antes desta camada existir.
+  const favicon = document.getElementById("favicon");
+  if (favicon instanceof HTMLLinkElement) {
+    favicon.href = themeIcons[theme];
+  }
 }
