@@ -3,13 +3,25 @@ const formatter = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
-/** Formata centavos como moeda: 15990 vira "R$ 159,90". */
+/** Exibido no lugar de um valor que não chegou, em vez de "R$ NaN". */
+export const MISSING_VALUE = "—";
+
+/**
+ * Formata centavos como moeda: 15990 vira "R$ 159,90".
+ *
+ * Um valor ausente vira um traço, nunca "R$ 0,00": afirmar saldo zero quando
+ * o número não chegou seria mentir sobre o dinheiro da pessoa.
+ */
 export function formatMoney(cents: number): string {
+  if (!Number.isFinite(cents)) return MISSING_VALUE;
+
   return formatter.format(cents / 100);
 }
 
 /** Como formatMoney, mas com sinal explícito à frente dos positivos. */
 export function formatSignedMoney(cents: number): string {
+  if (!Number.isFinite(cents)) return MISSING_VALUE;
+
   const formatted = formatMoney(Math.abs(cents));
   return cents < 0 ? `- ${formatted}` : `+ ${formatted}`;
 }

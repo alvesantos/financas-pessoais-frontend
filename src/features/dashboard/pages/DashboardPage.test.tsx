@@ -47,6 +47,30 @@ describe("DashboardPage", () => {
     expect(screen.getByText(/2\.159,90/)).toBeInTheDocument();
   });
 
+  it("o saldo atual mostra só o valor, sem legenda embaixo", async () => {
+    render(<DashboardPage />);
+    await screen.findByText("Saldo atual");
+
+    expect(
+      screen.queryByText(/Tudo que já foi pago e recebido/),
+    ).not.toBeInTheDocument();
+  });
+
+  it("um campo que a API não devolveu vira traço, não R$ NaN", async () => {
+    // Acontece quando o backend em execução é anterior ao campo novo.
+    const semOsCamposNovos = { ...painel } as Partial<Dashboard>;
+    delete semOsCamposNovos.saldo_atual_cents;
+    delete semOsCamposNovos.despesas_fixas_cents;
+
+    vi.mocked(dashboardApi.overview).mockResolvedValue(semOsCamposNovos as Dashboard);
+
+    render(<DashboardPage />);
+    await screen.findByText("Saldo atual");
+
+    expect(screen.queryByText(/NaN/)).not.toBeInTheDocument();
+    expect(screen.getAllByText("—").length).toBeGreaterThan(0);
+  });
+
   it("não mostra mais os números do mês que confundiam com o saldo atual", async () => {
     render(<DashboardPage />);
     await screen.findByText("Saldo atual");

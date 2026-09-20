@@ -1,11 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { formatMoney, formatSignedMoney, parseMoneyToCents } from "./money";
+import { MISSING_VALUE, formatMoney, formatSignedMoney, parseMoneyToCents } from "./money";
 
 describe("formatMoney", () => {
   it("formata centavos como reais", () => {
     // O separador de milhar do pt-BR é um espaço estreito, não um espaço comum.
     expect(formatMoney(15990).replace(/ /g, " ")).toBe("R$ 159,90");
     expect(formatMoney(0).replace(/ /g, " ")).toBe("R$ 0,00");
+  });
+
+  it("mostra um traço no lugar de um valor que não chegou", () => {
+    // Um campo novo na API ainda não servido chega como undefined: melhor um
+    // traço visível que "R$ NaN" — e melhor que "R$ 0,00", que seria mentira.
+    expect(formatMoney(undefined as unknown as number)).toBe(MISSING_VALUE);
+    expect(formatMoney(Number.NaN)).toBe(MISSING_VALUE);
+    expect(formatSignedMoney(undefined as unknown as number)).toBe(MISSING_VALUE);
   });
 
   it("marca o sinal de entrada e de saída", () => {

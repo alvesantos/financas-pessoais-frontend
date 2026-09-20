@@ -58,12 +58,7 @@ export function DashboardPage() {
       </header>
 
       <section className="stat-grid is-primary" aria-label="Situação atual">
-        <StatTile
-          label="Saldo atual"
-          cents={data.saldo_atual_cents}
-          signed
-          hint="Tudo que já foi pago e recebido, desde a primeira movimentação"
-        />
+        <StatTile label="Saldo atual" cents={data.saldo_atual_cents} signed />
         <StatTile
           label="Despesas fixas"
           cents={data.despesas_fixas_cents}

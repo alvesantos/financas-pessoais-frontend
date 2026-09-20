@@ -10,7 +10,8 @@ interface StatTileProps {
 
 /** Um número em destaque. Sem gráfico: um valor só não precisa de um. */
 export function StatTile({ label, cents, hint, signed = false }: StatTileProps) {
-  const tone = signed ? (cents < 0 ? " is-negative" : " is-positive") : "";
+  // Sem valor não há sinal para colorir.
+  const tone = signed && Number.isFinite(cents) ? (cents < 0 ? " is-negative" : " is-positive") : "";
 
   return (
     <div className="stat-tile">
