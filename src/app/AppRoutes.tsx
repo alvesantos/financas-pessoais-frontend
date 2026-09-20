@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AppShell } from "../components/layout/AppShell";
 import { LoginPage } from "../features/auth/pages/LoginPage";
+import { CardsPage } from "../features/cards/pages/CardsPage";
 import { CategoriesPage } from "../features/categories/pages/CategoriesPage";
 import { DashboardPage } from "../features/dashboard/pages/DashboardPage";
 import { DebtsPage } from "../features/debts/pages/DebtsPage";
@@ -26,6 +27,7 @@ export function AppRoutes() {
           <Route path={paths.recurring} element={<RecurringPage />} />
           <Route path={paths.categories} element={<CategoriesPage />} />
           <Route path={paths.debts} element={<DebtsPage />} />
+          <Route path={paths.cards} element={<CardsPage />} />
         </Route>
       </Route>
 

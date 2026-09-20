@@ -8,5 +8,8 @@ export const categoriesApi = {
   create: (input: CreateCategoryInput) =>
     httpClient.post<Category>("/categories", { body: input }),
 
+  update: (id: number, input: CreateCategoryInput) =>
+    httpClient.put<Category>(`/categories/${id}`, { body: input }),
+
   remove: (id: number) => httpClient.delete<void>(`/categories/${id}`),
 };

@@ -9,6 +9,7 @@ interface TransactionListProps {
   transactions: Transaction[];
   onDelete: (transaction: Transaction) => void;
   onEdit: (transaction: Transaction) => void;
+  onMarkPaid: (transaction: Transaction) => void;
 }
 
 /**
@@ -27,7 +28,12 @@ function keyOf(transaction: Transaction): string {
   return `lancamento-${transaction.id}`;
 }
 
-export function TransactionList({ transactions, onDelete, onEdit }: TransactionListProps) {
+export function TransactionList({
+  transactions,
+  onDelete,
+  onEdit,
+  onMarkPaid,
+}: TransactionListProps) {
   if (transactions.length === 0) {
     return (
       <EmptyState
@@ -100,6 +106,18 @@ export function TransactionList({ transactions, onDelete, onEdit }: TransactionL
             />
           ) : (
             <span className="entry-actions">
+              {!transaction.paid && (
+                <IconButton
+                  icon="confirmar"
+                  label={
+                    isIncome(transaction.kind)
+                      ? `Marcar ${transaction.description} como recebido`
+                      : `Marcar ${transaction.description} como pago`
+                  }
+                  confirm
+                  onClick={() => onMarkPaid(transaction)}
+                />
+              )}
               <IconButton
                 icon="editar"
                 label={`Editar ${transaction.description}`}

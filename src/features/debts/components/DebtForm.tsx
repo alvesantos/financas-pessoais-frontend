@@ -11,6 +11,7 @@ import { allFrequencies, frequencyLabels, kindLabels } from "../../../types/fina
 import type { Frequency, Kind } from "../../../types/finance";
 import { CategorySelect } from "../../categories/components/CategorySelect";
 import { debtsApi } from "../api/debts.api";
+import type { Debt } from "../types";
 
 /** Dívida é saída: receita e investimento não cabem aqui. */
 const kindOptions: { value: Kind; label: string }[] = [
@@ -23,14 +24,23 @@ const frequencyOptions = allFrequencies.map((frequency) => ({
   label: frequencyLabels[frequency],
 }));
 
-export function DebtForm({ onCreated }: { onCreated: () => void }) {
-  const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
-  const [installments, setInstallments] = useState("12");
-  const [kind, setKind] = useState<Kind>("despesa");
-  const [frequency, setFrequency] = useState<Frequency>("mensal");
-  const [firstDueDate, setFirstDueDate] = useState(todayISO());
-  const [categoryId, setCategoryId] = useState<number | null>(null);
+interface DebtFormProps {
+  /** Quando presente, o formulário edita em vez de registrar. */
+  editing?: Debt | null;
+  onCreated: () => void;
+  onCancelEdit?: () => void;
+}
+
+export function DebtForm({ editing = null, onCreated, onCancelEdit }: DebtFormProps) {
+  const [description, setDescription] = useState(editing?.description ?? "");
+  const [amount, setAmount] = useState(() =>
+    editing ? (editing.installment_amount_cents / 100).toFixed(2).replace(".", ",") : "",
+  );
+  const [installments, setInstallments] = useState(String(editing?.installments ?? 12));
+  const [kind, setKind] = useState<Kind>(editing?.kind ?? "despesa");
+  const [frequency, setFrequency] = useState<Frequency>(editing?.frequency ?? "mensal");
+  const [firstDueDate, setFirstDueDate] = useState(editing?.first_due_date ?? todayISO());
+  const [categoryId, setCategoryId] = useState<number | null>(editing?.category_id ?? null);
 
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState("");
@@ -60,7 +70,7 @@ export function DebtForm({ onCreated }: { onCreated: () => void }) {
 
     setSubmitting(true);
     try {
-      await debtsApi.create({
+      const payload = {
         description,
         installment_amount_cents: installmentCents,
         installments: count,
@@ -68,10 +78,16 @@ export function DebtForm({ onCreated }: { onCreated: () => void }) {
         frequency,
         first_due_date: firstDueDate,
         category_id: categoryId,
-      });
+      };
 
-      setDescription("");
-      setAmount("");
+      if (editing) {
+        await debtsApi.update(editing.id, payload);
+      } else {
+        await debtsApi.create(payload);
+        setDescription("");
+        setAmount("");
+      }
+
       onCreated();
     } catch (error) {
       if (error instanceof ApiError) {
@@ -156,9 +172,17 @@ export function DebtForm({ onCreated }: { onCreated: () => void }) {
 
       {formError && <Alert>{formError}</Alert>}
 
-      <Button type="submit" loading={submitting}>
-        Registrar dívida
-      </Button>
+      <div className="entry-form-actions">
+        <Button type="submit" loading={submitting}>
+          {editing ? "Salvar alterações" : "Registrar dívida"}
+        </Button>
+
+        {editing && onCancelEdit && (
+          <Button type="button" variant="ghost" onClick={onCancelEdit}>
+            Cancelar
+          </Button>
+        )}
+      </div>
     </form>
   );
 }

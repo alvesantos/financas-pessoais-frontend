@@ -8,15 +8,23 @@ import { ApiError, type FieldErrors } from "../../../lib/api-error";
 import { allKinds, kindLabels } from "../../../types/finance";
 import type { Kind } from "../../../types/finance";
 import { categoriesApi } from "../api/categories.api";
+import type { Category } from "../types";
 
 const kindOptions = allKinds.map((kind) => ({ value: kind, label: kindLabels[kind] }));
 
 const DEFAULT_COLOR = "#6366f1";
 
-export function CategoryForm({ onCreated }: { onCreated: () => void }) {
-  const [name, setName] = useState("");
-  const [kind, setKind] = useState<Kind>("despesa");
-  const [color, setColor] = useState(DEFAULT_COLOR);
+interface CategoryFormProps {
+  /** Quando presente, o formulário edita em vez de criar. */
+  editing?: Category | null;
+  onCreated: () => void;
+  onCancelEdit?: () => void;
+}
+
+export function CategoryForm({ editing = null, onCreated, onCancelEdit }: CategoryFormProps) {
+  const [name, setName] = useState(editing?.name ?? "");
+  const [kind, setKind] = useState<Kind>(editing?.kind ?? "despesa");
+  const [color, setColor] = useState(editing?.color ?? DEFAULT_COLOR);
 
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState("");
@@ -29,10 +37,14 @@ export function CategoryForm({ onCreated }: { onCreated: () => void }) {
     setSubmitting(true);
 
     try {
-      await categoriesApi.create({ name, kind, color });
+      if (editing) {
+        await categoriesApi.update(editing.id, { name, kind, color });
+      } else {
+        await categoriesApi.create({ name, kind, color });
+        setName("");
+        setColor(DEFAULT_COLOR);
+      }
 
-      setName("");
-      setColor(DEFAULT_COLOR);
       onCreated();
     } catch (error) {
       if (error instanceof ApiError) {
@@ -67,9 +79,17 @@ export function CategoryForm({ onCreated }: { onCreated: () => void }) {
 
       {formError && <Alert>{formError}</Alert>}
 
-      <Button type="submit" loading={submitting}>
-        Adicionar categoria
-      </Button>
+      <div className="entry-form-actions">
+        <Button type="submit" loading={submitting}>
+          {editing ? "Salvar alterações" : "Adicionar categoria"}
+        </Button>
+
+        {editing && onCancelEdit && (
+          <Button type="button" variant="ghost" onClick={onCancelEdit}>
+            Cancelar
+          </Button>
+        )}
+      </div>
     </form>
   );
 }

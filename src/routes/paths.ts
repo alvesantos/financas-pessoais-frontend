@@ -6,4 +6,5 @@ export const paths = {
   recurring: "/fixos",
   categories: "/categorias",
   debts: "/dividas",
+  cards: "/cartoes",
 } as const;

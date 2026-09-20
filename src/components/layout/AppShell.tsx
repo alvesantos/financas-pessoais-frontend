@@ -15,6 +15,7 @@ const menu: { to: string; label: string; icon: IconName }[] = [
   { to: paths.recurring, label: "Fixos", icon: "fixos" },
   { to: paths.categories, label: "Categorias", icon: "categorias" },
   { to: paths.debts, label: "Dívidas", icon: "dividas" },
+  { to: paths.cards, label: "Cartões", icon: "cartoes" },
 ];
 
 /** Lê a preferência salva. Em aba anônima o acesso lança, daí o try/catch. */

@@ -26,6 +26,29 @@ export function TransactionsPage() {
     setMonth(nextMonthNumber);
   }
 
+  /**
+   * Marca um lançamento como pago sem abrir o formulário. A API tem só o PUT
+   * inteiro, então os outros campos vão de volta como estão.
+   */
+  async function handleMarkPaid(transaction: Transaction) {
+    setDeleteError("");
+
+    try {
+      await transactionsApi.update(transaction.id, {
+        description: transaction.description,
+        amount_cents: transaction.amount_cents,
+        kind: transaction.kind,
+        occurred_at: transaction.occurred_at,
+        category_id: transaction.category_id,
+        paid: true,
+        credit_card_id: transaction.credit_card_id,
+      });
+      reload();
+    } catch {
+      setDeleteError("Não foi possível marcar como pago.");
+    }
+  }
+
   async function handleDelete(transaction: Transaction) {
     setDeleteError("");
 
@@ -73,6 +96,7 @@ export function TransactionsPage() {
             transactions={transactions}
             onDelete={handleDelete}
             onEdit={setEditing}
+            onMarkPaid={handleMarkPaid}
           />
         )}
       </Card>

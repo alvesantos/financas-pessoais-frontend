@@ -20,6 +20,7 @@ export function RecurringPage() {
     entries: [],
   });
   const [error, setError] = useState("");
+  const [editing, setEditing] = useState<RecurringEntry | null>(null);
 
   const loading = loaded.version !== version;
   const reload = useCallback(() => setVersion((current) => current + 1), []);
@@ -45,6 +46,7 @@ export function RecurringPage() {
 
     try {
       await recurringApi.remove(entry.id);
+      if (editing?.id === entry.id) setEditing(null);
       reload();
     } catch {
       setError("Não foi possível apagar o fixo.");
@@ -61,8 +63,16 @@ export function RecurringPage() {
         </p>
       </header>
 
-      <Card title="Novo fixo">
-        <RecurringForm onCreated={reload} />
+      <Card title={editing ? "Editar fixo" : "Novo fixo"}>
+        <RecurringForm
+          key={editing?.id ?? "novo"}
+          editing={editing}
+          onCreated={() => {
+            setEditing(null);
+            reload();
+          }}
+          onCancelEdit={() => setEditing(null)}
+        />
       </Card>
 
       <Card title="Seus fixos">
@@ -102,12 +112,19 @@ export function RecurringPage() {
                   {formatMoney(entry.amount_cents)}
                 </span>
 
-                <IconButton
-                  icon="excluir"
-                  label={`Apagar ${entry.description}`}
-                  danger
-                  onClick={() => handleDelete(entry)}
-                />
+                <span className="entry-actions">
+                  <IconButton
+                    icon="editar"
+                    label={`Editar ${entry.description}`}
+                    onClick={() => setEditing(entry)}
+                  />
+                  <IconButton
+                    icon="excluir"
+                    label={`Apagar ${entry.description}`}
+                    danger
+                    onClick={() => handleDelete(entry)}
+                  />
+                </span>
               </li>
             ))}
           </ul>

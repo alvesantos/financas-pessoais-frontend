@@ -520,6 +520,17 @@
   color: var(--danger);
 }
 
+/* Confirmar pagamento fica sempre visível no tom de destaque: é uma ação
+   que se procura, não uma que se descobre passando o ponteiro. */
+.icon-button.is-confirm {
+  color: var(--accent);
+}
+
+.icon-button.is-confirm:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
 @media (max-width: 640px) {
   .entry-form-row {
     grid-template-columns: 1fr;

@@ -11,6 +11,7 @@ import { allFrequencies, allKinds, frequencyLabels, kindLabels } from "../../../
 import type { Frequency, Kind } from "../../../types/finance";
 import { CategorySelect } from "../../categories/components/CategorySelect";
 import { recurringApi } from "../api/recurring.api";
+import type { RecurringEntry } from "../types";
 
 const kindOptions = allKinds.map((kind) => ({ value: kind, label: kindLabels[kind] }));
 const frequencyOptions = allFrequencies.map((frequency) => ({
@@ -18,14 +19,23 @@ const frequencyOptions = allFrequencies.map((frequency) => ({
   label: frequencyLabels[frequency],
 }));
 
+interface RecurringFormProps {
+  /** Quando presente, o formulário edita em vez de criar. */
+  editing?: RecurringEntry | null;
+  onCreated: () => void;
+  onCancelEdit?: () => void;
+}
+
 /** Cadastra um gasto ou receita fixo, como "Academia, todo dia 20". */
-export function RecurringForm({ onCreated }: { onCreated: () => void }) {
-  const [amount, setAmount] = useState("");
-  const [kind, setKind] = useState<Kind>("despesa");
-  const [description, setDescription] = useState("");
-  const [frequency, setFrequency] = useState<Frequency>("mensal");
-  const [startDate, setStartDate] = useState(todayISO());
-  const [categoryId, setCategoryId] = useState<number | null>(null);
+export function RecurringForm({ editing = null, onCreated, onCancelEdit }: RecurringFormProps) {
+  const [amount, setAmount] = useState(() =>
+    editing ? (editing.amount_cents / 100).toFixed(2).replace(".", ",") : "",
+  );
+  const [kind, setKind] = useState<Kind>(editing?.kind ?? "despesa");
+  const [description, setDescription] = useState(editing?.description ?? "");
+  const [frequency, setFrequency] = useState<Frequency>(editing?.frequency ?? "mensal");
+  const [startDate, setStartDate] = useState(editing?.start_date ?? todayISO());
+  const [categoryId, setCategoryId] = useState<number | null>(editing?.category_id ?? null);
 
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState("");
@@ -44,17 +54,23 @@ export function RecurringForm({ onCreated }: { onCreated: () => void }) {
 
     setSubmitting(true);
     try {
-      await recurringApi.create({
+      const payload = {
         description,
         amount_cents: amountCents,
         kind,
         frequency,
         start_date: startDate,
         category_id: categoryId,
-      });
+      };
 
-      setAmount("");
-      setDescription("");
+      if (editing) {
+        await recurringApi.update(editing.id, payload);
+      } else {
+        await recurringApi.create(payload);
+        setAmount("");
+        setDescription("");
+      }
+
       onCreated();
     } catch (error) {
       if (error instanceof ApiError) {
@@ -114,9 +130,17 @@ export function RecurringForm({ onCreated }: { onCreated: () => void }) {
 
       {formError && <Alert>{formError}</Alert>}
 
-      <Button type="submit" loading={submitting}>
-        Adicionar fixo
-      </Button>
+      <div className="entry-form-actions">
+        <Button type="submit" loading={submitting}>
+          {editing ? "Salvar alterações" : "Adicionar fixo"}
+        </Button>
+
+        {editing && onCancelEdit && (
+          <Button type="button" variant="ghost" onClick={onCancelEdit}>
+            Cancelar
+          </Button>
+        )}
+      </div>
     </form>
   );
 }

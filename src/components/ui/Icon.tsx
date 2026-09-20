@@ -8,7 +8,8 @@ type IconName =
   | "recolher"
   | "expandir"
   | "excluir"
-  | "editar";
+  | "editar"
+  | "confirmar";
 
 const paths: Record<IconName, string[]> = {
   painel: ["M3 3h7v7H3z", "M14 3h7v5h-7z", "M14 12h7v9h-7z", "M3 14h7v7H3z"],
@@ -20,6 +21,7 @@ const paths: Record<IconName, string[]> = {
   cartoes: ["M2 7h20v12H2z", "M2 11h20", "M6 15h4"],
   excluir: ["M4 7h16", "M9 7V5h6v2", "M6 7l1 13h10l1-13", "M10 11v6", "M14 11v6"],
   editar: ["M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17v3z", "M14.5 6.5l3 3"],
+  confirmar: ["M20 6L9 17l-5-5"],
   recolher: ["M15 18l-6-6 6-6"],
   expandir: ["M9 18l6-6-6-6"],
 };

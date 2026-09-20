@@ -25,6 +25,7 @@ export function DebtsPage() {
   const [error, setError] = useState("");
   const [amortizing, setAmortizing] = useState<Debt | null>(null);
   const [settling, setSettling] = useState<Debt | null>(null);
+  const [editing, setEditing] = useState<Debt | null>(null);
 
   const loading = loaded.version !== version;
   const reload = useCallback(() => setVersion((current) => current + 1), []);
@@ -50,6 +51,7 @@ export function DebtsPage() {
 
     try {
       await debtsApi.remove(debt.id);
+      if (editing?.id === debt.id) setEditing(null);
       reload();
     } catch {
       setError("Não foi possível apagar a dívida.");
@@ -81,8 +83,16 @@ export function DebtsPage() {
         </section>
       )}
 
-      <Card title="Nova dívida">
-        <DebtForm onCreated={reload} />
+      <Card title={editing ? "Editar dívida" : "Nova dívida"}>
+        <DebtForm
+          key={editing?.id ?? "nova"}
+          editing={editing}
+          onCreated={() => {
+            setEditing(null);
+            reload();
+          }}
+          onCancelEdit={() => setEditing(null)}
+        />
       </Card>
 
       <Card title="Suas dívidas">
@@ -121,6 +131,11 @@ export function DebtsPage() {
                   </div>
 
                   <span className="entry-actions">
+                    <IconButton
+                      icon="editar"
+                      label={`Editar ${debt.description}`}
+                      onClick={() => setEditing(debt)}
+                    />
                     <IconButton
                       icon="excluir"
                       label={`Apagar ${debt.description}`}

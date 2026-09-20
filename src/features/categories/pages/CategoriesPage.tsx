@@ -17,6 +17,7 @@ export function CategoriesPage() {
     categories: [],
   });
   const [error, setError] = useState("");
+  const [editing, setEditing] = useState<Category | null>(null);
 
   const loading = loaded.version !== version;
   const reload = useCallback(() => setVersion((current) => current + 1), []);
@@ -42,6 +43,7 @@ export function CategoriesPage() {
 
     try {
       await categoriesApi.remove(category.id);
+      if (editing?.id === category.id) setEditing(null);
       reload();
     } catch {
       setError("Não foi possível apagar a categoria.");
@@ -55,8 +57,16 @@ export function CategoriesPage() {
         <p>Agrupe os lançamentos do mesmo assunto. O nome é único dentro de cada tipo.</p>
       </header>
 
-      <Card title="Nova categoria">
-        <CategoryForm onCreated={reload} />
+      <Card title={editing ? "Editar categoria" : "Nova categoria"}>
+        <CategoryForm
+          key={editing?.id ?? "nova"}
+          editing={editing}
+          onCreated={() => {
+            setEditing(null);
+            reload();
+          }}
+          onCancelEdit={() => setEditing(null)}
+        />
       </Card>
 
       <Card title="Suas categorias">
@@ -84,12 +94,19 @@ export function CategoriesPage() {
                   <span className="entry-meta">{category.kind_label}</span>
                 </span>
 
-                <IconButton
-                  icon="excluir"
-                  label={`Apagar ${category.name}`}
-                  danger
-                  onClick={() => handleDelete(category)}
-                />
+                <span className="entry-actions">
+                  <IconButton
+                    icon="editar"
+                    label={`Editar ${category.name}`}
+                    onClick={() => setEditing(category)}
+                  />
+                  <IconButton
+                    icon="excluir"
+                    label={`Apagar ${category.name}`}
+                    danger
+                    onClick={() => handleDelete(category)}
+                  />
+                </span>
               </li>
             ))}
           </ul>

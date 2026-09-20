@@ -8,5 +8,8 @@ export const recurringApi = {
   create: (input: CreateRecurringInput) =>
     httpClient.post<RecurringEntry>("/recurring", { body: input }),
 
+  update: (id: number, input: CreateRecurringInput) =>
+    httpClient.put<RecurringEntry>(`/recurring/${id}`, { body: input }),
+
   remove: (id: number) => httpClient.delete<void>(`/recurring/${id}`),
 };
