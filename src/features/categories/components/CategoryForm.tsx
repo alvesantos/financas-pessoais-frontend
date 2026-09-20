@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Alert } from "../../../components/ui/Alert";
 import { Button } from "../../../components/ui/Button";
+import { ColorField } from "../../../components/ui/ColorField";
 import { Select } from "../../../components/ui/Select";
 import { TextField } from "../../../components/ui/TextField";
 import { ApiError, type FieldErrors } from "../../../lib/api-error";
@@ -60,22 +61,8 @@ export function CategoryForm({ onCreated }: { onCreated: () => void }) {
         <Select label="Tipo" value={kind} options={kindOptions} onChange={setKind} error={fieldErrors.kind} />
       </div>
 
-      <div className="color-picker">
-        <label className="field-label" htmlFor="category-color">
-          Cor
-        </label>
-        <input
-          id="category-color"
-          type="color"
-          value={color}
-          onChange={(event) => setColor(event.target.value)}
-          aria-describedby={fieldErrors.color ? "category-color-error" : undefined}
-        />
-        {fieldErrors.color && (
-          <p className="field-error" id="category-color-error" role="alert">
-            {fieldErrors.color}
-          </p>
-        )}
+      <div className="entry-form-row">
+        <ColorField label="Cor" value={color} onChange={setColor} error={fieldErrors.color} />
       </div>
 
       {formError && <Alert>{formError}</Alert>}

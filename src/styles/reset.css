@@ -33,8 +33,12 @@ a {
   text-decoration: none;
 }
 
+/* O select ficava de fora e caía na fonte padrão do navegador, o que dava
+   a ele altura e desenho diferentes dos outros campos. */
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
   color: inherit;
 }

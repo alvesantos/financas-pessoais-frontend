@@ -25,7 +25,10 @@
 
 .field-control {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  /* Altura comum a todos os controles: sem ela, input, select e campo de
+     cor ficam cada um com a altura intrínseca do seu tipo. */
+  min-height: 44px;
   background: var(--surface-muted);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -52,7 +55,7 @@
 .field-control input {
   flex: 1;
   min-width: 0;
-  padding: 11px 14px;
+  padding: 0 14px;
   background: transparent;
   border: 0;
   border-radius: inherit;
@@ -74,7 +77,7 @@
 
 .field-toggle {
   flex-shrink: 0;
-  padding: 6px 12px 6px 4px;
+  padding: 0 12px 0 4px;
   background: none;
   border: 0;
   font-size: 12.5px;
@@ -301,7 +304,7 @@
 .field-control select {
   flex: 1;
   min-width: 0;
-  padding: 11px 14px;
+  padding: 0 14px;
   background: transparent;
   border: 0;
   border-radius: inherit;
@@ -325,6 +328,7 @@
 /* Seta própria, já que a nativa some com o appearance: none. */
 .field-control:has(select)::after {
   content: "";
+  align-self: center;
   width: 7px;
   height: 7px;
   margin-right: 14px;
@@ -336,6 +340,8 @@
 }
 
 .money-control .money-prefix {
+  display: flex;
+  align-items: center;
   padding-left: 14px;
   color: var(--text-subtle);
   font-size: 14px;
@@ -509,4 +515,47 @@
   .entry-form .btn {
     width: 100%;
   }
+}
+
+/* ------------------------------ campo de cor ------------------------------- */
+
+.color-control {
+  gap: var(--space-3);
+  padding: 0 14px;
+  align-items: center;
+}
+
+.color-control input[type="color"] {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* O navegador embrulha a amostra em uma caixa com borda e folga próprias. */
+.color-control input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-control input[type="color"]::-webkit-color-swatch {
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+}
+
+.color-control input[type="color"]::-moz-color-swatch {
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+}
+
+.color-value {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  text-transform: lowercase;
 }
