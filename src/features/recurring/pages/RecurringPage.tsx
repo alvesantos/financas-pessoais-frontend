@@ -72,7 +72,7 @@ export function RecurringPage() {
         ) : loaded.entries.length === 0 ? (
           <EmptyState
             title="Nenhum fixo cadastrado"
-            hint="Cadastre a academia, o aluguel, o salário — o que se repete todo mês."
+            hint="Cadastre o que se repete todo mês: academia, aluguel, salário."
           />
         ) : (
           <ul className="entries">

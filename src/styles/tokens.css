@@ -1,9 +1,9 @@
 /* ----------------------------------------------------------------
-   Mnemio — tokens de design.
+   Mnemio: tokens de design.
 
    O tema é escolhido antes da primeira pintura por um script em
    index.html, que escreve data-theme no <html>. Como a aplicação é uma SPA
-   e não roda sem JavaScript, não há caminho em que o atributo falte — por
+   e não roda sem JavaScript, não há caminho em que o atributo falte. Por
    isso os tokens escuros vivem em um só lugar, sem duplicar em media query.
    ---------------------------------------------------------------- */
 :root {

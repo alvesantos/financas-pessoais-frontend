@@ -23,7 +23,7 @@ interface MonthData {
 
 /**
  * Carrega os lançamentos e os saldos do mês. As duas chamadas andam juntas
- * porque a tela só faz sentido com as duas — mostrar uma sem a outra deixaria
+ * porque a tela só faz sentido com as duas. Mostrar uma sem a outra deixaria
  * a lista e o saldo discordando na tela.
  *
  * O estado de carregamento é derivado da comparação entre o mês pedido e o

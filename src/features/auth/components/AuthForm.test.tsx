@@ -26,7 +26,7 @@ beforeEach(() => {
   vi.mocked(authApi.register).mockReset();
 });
 
-describe("AuthForm — entrar", () => {
+describe("AuthForm: entrar", () => {
   it("envia as credenciais digitadas", async () => {
     const user = userEvent.setup();
     vi.mocked(authApi.login).mockResolvedValue(sessao);
@@ -103,7 +103,7 @@ describe("AuthForm — entrar", () => {
   });
 });
 
-describe("AuthForm — criar conta", () => {
+describe("AuthForm: criar conta", () => {
   it("envia nome, e-mail e senha", async () => {
     const user = userEvent.setup();
     vi.mocked(authApi.register).mockResolvedValue(sessao);

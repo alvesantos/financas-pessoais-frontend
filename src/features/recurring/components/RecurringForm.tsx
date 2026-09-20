@@ -100,9 +100,6 @@ export function RecurringForm({ onCreated }: { onCreated: () => void }) {
           onChange={(event) => setStartDate(event.target.value)}
           error={fieldErrors.start_date}
         />
-        <p className="entry-form-hint">
-          O dia escolhido vira o dia da repetição: começando em 20/01 e mensal, cai todo dia 20.
-        </p>
       </div>
 
       {formError && <Alert>{formError}</Alert>}

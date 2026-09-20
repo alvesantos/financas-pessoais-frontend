@@ -10,7 +10,7 @@ describe("formatMoney", () => {
 
   it("mostra um traço no lugar de um valor que não chegou", () => {
     // Um campo novo na API ainda não servido chega como undefined: melhor um
-    // traço visível que "R$ NaN" — e melhor que "R$ 0,00", que seria mentira.
+    // aviso visível que "R$ NaN", e melhor que "R$ 0,00", que seria mentira.
     expect(formatMoney(undefined as unknown as number)).toBe(MISSING_VALUE);
     expect(formatMoney(Number.NaN)).toBe(MISSING_VALUE);
     expect(formatSignedMoney(undefined as unknown as number)).toBe(MISSING_VALUE);

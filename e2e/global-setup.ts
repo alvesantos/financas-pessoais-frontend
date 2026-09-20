@@ -1,7 +1,7 @@
 const API_URL = process.env.VITE_API_URL ?? "http://localhost:8080/api";
 
 /**
- * Falha cedo e com instrução clara quando a API não está no ar — sem isso,
+ * Falha cedo e com instrução clara quando a API não está no ar. Sem isso,
  * todo teste quebraria com um erro de rede sem explicação.
  */
 export default async function globalSetup() {

@@ -10,7 +10,7 @@ interface TransactionListProps {
 }
 
 /**
- * Lista do mês. Cada linha traz o dia, a descrição e, embaixo dela, o tipo —
+ * Lista do mês. Cada linha traz o dia, a descrição e, embaixo dela, o tipo,
  * e a frequência, quando a linha veio de um lançamento fixo.
  */
 export function TransactionList({ transactions, onDelete }: TransactionListProps) {

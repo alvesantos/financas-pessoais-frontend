@@ -66,7 +66,7 @@ export function CategoriesPage() {
         ) : loaded.categories.length === 0 ? (
           <EmptyState
             title="Nenhuma categoria cadastrada"
-            hint="Mercado, transporte, moradia — o que fizer sentido para você."
+            hint="Crie as que fizerem sentido para você: mercado, transporte, moradia."
           />
         ) : (
           <ul className="entries">

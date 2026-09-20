@@ -56,7 +56,7 @@ describe("DashboardPage", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("um campo que a API não devolveu vira traço, não R$ NaN", async () => {
+  it("um campo que a API não devolveu vira aviso, não R$ NaN", async () => {
     // Acontece quando o backend em execução é anterior ao campo novo.
     const semOsCamposNovos = { ...painel } as Partial<Dashboard>;
     delete semOsCamposNovos.saldo_atual_cents;
@@ -68,7 +68,7 @@ describe("DashboardPage", () => {
     await screen.findByText("Saldo atual");
 
     expect(screen.queryByText(/NaN/)).not.toBeInTheDocument();
-    expect(screen.getAllByText("—").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Indisponível").length).toBeGreaterThan(0);
   });
 
   it("não mostra mais os números do mês que confundiam com o saldo atual", async () => {

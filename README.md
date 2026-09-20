@@ -1,6 +1,6 @@
-# Mnemio — Web
+# Mnemio: Web
 
-Interface em React + TypeScript do **Mnemio — Finanças**. Organização
+Interface em React + TypeScript do **Mnemio Finanças**. Organização
 por **feature**: cada domínio da aplicação guarda suas próprias páginas,
 componentes, chamadas de API e tipos.
 
@@ -146,7 +146,7 @@ de origem e devolve o usuário a ela depois do login.
 Os tokens ficam em `src/styles/tokens.css`: `:root` para o claro,
 `:root[data-theme="dark"]` para o escuro. Para mudar a identidade visual,
 troque `--accent`, `--accent-hover`, `--accent-soft`, `--accent-contrast` e
-`--accent-ring` — nada mais depende da cor.
+`--accent-ring`. Nada mais depende da cor.
 
 Acessibilidade: labels associadas por `htmlFor`, erros anunciados com
 `role="alert"` e `aria-describedby`, foco sempre visível, e as animações

@@ -18,7 +18,7 @@ export interface ApiErrorBody {
   fields?: FieldErrors;
 }
 
-/** Erro normalizado de qualquer falha de API — inclusive rede fora do ar. */
+/** Erro normalizado de qualquer falha de API, inclusive rede fora do ar. */
 export class ApiError extends Error {
   readonly status: number;
   readonly code: ApiErrorCode;

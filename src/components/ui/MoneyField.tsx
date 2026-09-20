@@ -10,7 +10,7 @@ interface MoneyFieldProps
 
 /**
  * Campo de valor em reais. Guarda o texto cru e deixa a conversão para
- * centavos com quem envia — assim a pessoa digita à vontade enquanto escreve.
+ * centavos com quem envia, assim a pessoa digita à vontade enquanto escreve.
  */
 export function MoneyField({ label, value, error, onChange, ...props }: MoneyFieldProps) {
   const id = useId();

@@ -4,7 +4,7 @@ interface StatTileProps {
   label: string;
   cents: number;
   hint?: string;
-  /** Colore o número conforme o sinal — só faz sentido para saldos. */
+  /** Colore o número conforme o sinal. Só faz sentido para saldos. */
   signed?: boolean;
 }
 

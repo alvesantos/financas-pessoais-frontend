@@ -26,7 +26,7 @@ interface TransactionFormProps {
 
 /**
  * Cria um lançamento. Marcando "é um lançamento fixo", o que é gravado é a
- * regra de recorrência — e ela passa a projetar o lançamento em todos os
+ * regra de recorrência, e ela passa a projetar o lançamento em todos os
  * meses, em vez de existir só neste.
  */
 export function TransactionForm({ defaultDate, onCreated }: TransactionFormProps) {

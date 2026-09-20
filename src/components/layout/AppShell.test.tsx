@@ -65,8 +65,8 @@ describe("AppShell", () => {
 
     await user.click(await screen.findByRole("button", { name: "Recolher menu" }));
 
-    // O rótulo sai da tela por clip, não por display:none — quem usa leitor
-    // de tela continua distinguindo os itens.
+    // O rótulo sai da tela por clip, não por display:none, então quem usa
+    // leitor de tela continua distinguindo os itens.
     expect(screen.getByRole("link", { name: "Lançamentos" })).toBeInTheDocument();
   });
 

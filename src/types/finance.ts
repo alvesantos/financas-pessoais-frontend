@@ -13,7 +13,7 @@ export type Frequency =
   | "semestral"
   | "anual";
 
-/** Rótulo de cada tipo — é também a descrição padrão de um lançamento. */
+/** Rótulo de cada tipo. É também a descrição padrão de um lançamento. */
 export const kindLabels: Record<Kind, string> = {
   receita: "Receita",
   despesa: "Despesa",

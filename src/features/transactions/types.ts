@@ -2,7 +2,7 @@ import type { Frequency, Kind } from "../../types/finance";
 
 /**
  * Um lançamento do mês. Quando vem projetado de um fixo, `projected` é true,
- * `id` é 0 e a origem está em `recurring_id` — projeções não existem como
+ * `id` é 0 e a origem está em `recurring_id`. Projeções não existem como
  * linha no banco e por isso não podem ser apagadas isoladamente.
  */
 export interface Transaction {

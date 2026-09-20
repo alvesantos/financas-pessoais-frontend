@@ -4,7 +4,7 @@ import type { KindTotal } from "../types";
 /**
  * Onde o dinheiro foi no mês, do maior para o menor.
  *
- * Uma série só: a cor não carrega identidade — o rótulo carrega —, então não
+ * Uma série só: a cor não carrega identidade, o rótulo carrega, então não
  * há legenda e cada barra traz o valor direto ao lado.
  */
 export function ExpenseByKindChart({ data }: { data: KindTotal[] }) {

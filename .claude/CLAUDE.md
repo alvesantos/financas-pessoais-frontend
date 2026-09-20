@@ -1,6 +1,6 @@
-# Mnemio — Web (React + TypeScript)
+# Mnemio: Web (React + TypeScript)
 
-Interface do Mnemio — Finanças. Organização por feature, design minimalista
+Interface do Mnemio Finanças. Organização por feature, design minimalista
 com pegada futurista.
 
 ## Regras obrigatórias
@@ -20,7 +20,7 @@ Toda funcionalidade entra com **testes unitários e testes e2e**. Não
 considere uma funcionalidade pronta sem os dois.
 
 - **Unitários**: componentes e hooks com Vitest + Testing Library, testando
-  o comportamento que o usuário vê — não o estado interno. A camada `api/`
+  o comportamento que o usuário vê, não o estado interno. A camada `api/`
   da feature é mockada.
 - **E2e**: Playwright, contra a aplicação rodando e a API de verdade.
   Cubra o fluxo completo da funcionalidade e os caminhos de erro.
@@ -42,7 +42,7 @@ npm run lint      # oxlint
 npm test          # unitários (Vitest)
 npm run test:watch
 npm run test:coverage
-npm run test:e2e  # Playwright — exige a API no ar
+npm run test:e2e  # Playwright, exige a API no ar
 ```
 
 ## Estrutura
@@ -67,11 +67,14 @@ Regras que não se quebram:
 - **Nenhum componente chama `fetch` direto.** Toda chamada passa por
   `features/<feature>/api/*.api.ts`, que usa o `httpClient`.
 - Rotas só em `routes/paths.ts`. Nada de string de rota espalhada.
-- `localStorage` sempre dentro de try/catch — em aba anônima ele lança.
+- `localStorage` sempre dentro de try/catch: em aba anônima ele lança.
 
 ## Convenções
 
 - Código, comentários, textos de interface e commits em **português**.
+- **Nunca use travessão (—) em nada**: nem em texto de interface, nem em
+  comentário, nem em commit, nem em documentação. Use vírgula, dois-pontos,
+  ponto ou parênteses.
 - Comentário explica o porquê de uma decisão, não o que a linha faz.
 - Erros de API viram `ApiError`: `error.fields` vai para o input
   correspondente, o resto vira mensagem única do formulário.
@@ -80,11 +83,11 @@ Regras que não se quebram:
   `:root[data-theme="dark"]`.
 - **O tema vem do `data-theme` no `<html>`**, aplicado antes da primeira
   pintura pelo script em `index.html`. Nada de `prefers-color-scheme` em
-  regra de componente — isso ignoraria a escolha da pessoa.
+  regra de componente, porque isso ignoraria a escolha da pessoa.
 - **Keyframes ficam em `styles/motion.css`**, não espalhados. O reset já zera
   as durações em `prefers-reduced-motion`.
 - **Dinheiro sempre em centavos**, como inteiro. Formatar e interpretar só
-  por `lib/money.ts` — nunca `toFixed` espalhado pelos componentes.
+  por `lib/money.ts`, nunca `toFixed` espalhado pelos componentes.
 - **Datas ISO são fatiadas como texto** (`lib/dates.ts`), não passadas por
   `new Date`: `new Date("2026-09-20")` vira dia 19 em fusos a oeste.
 - **Gráfico novo passa pela skill `dataviz` antes de ser escrito.** Duas ou

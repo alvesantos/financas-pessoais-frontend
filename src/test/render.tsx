@@ -11,7 +11,7 @@ interface Options extends Omit<RenderOptions, "wrapper"> {
 
 /**
  * Renderiza com os providers reais da aplicação. Só a camada de API é
- * mockada nos testes — o resto roda de verdade.
+ * mockada nos testes. O resto roda de verdade.
  */
 export function renderWithProviders(ui: ReactElement, { route = "/", ...options }: Options = {}) {
   function Wrapper({ children }: { children: ReactNode }) {

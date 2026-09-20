@@ -4,12 +4,12 @@ const formatter = new Intl.NumberFormat("pt-BR", {
 });
 
 /** Exibido no lugar de um valor que não chegou, em vez de "R$ NaN". */
-export const MISSING_VALUE = "—";
+export const MISSING_VALUE = "Indisponível";
 
 /**
  * Formata centavos como moeda: 15990 vira "R$ 159,90".
  *
- * Um valor ausente vira um traço, nunca "R$ 0,00": afirmar saldo zero quando
+ * Um valor ausente vira um aviso, nunca "R$ 0,00": afirmar saldo zero quando
  * o número não chegou seria mentir sobre o dinheiro da pessoa.
  */
 export function formatMoney(cents: number): string {
