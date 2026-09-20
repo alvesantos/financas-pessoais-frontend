@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Alert } from "../../../components/ui/Alert";
 import { Card } from "../../../components/ui/Card";
 import { EmptyState } from "../../../components/ui/EmptyState";
+import { IconButton } from "../../../components/ui/IconButton";
 import { formatDayMonth } from "../../../lib/dates";
 import { formatMoney } from "../../../lib/money";
 import { isIncome } from "../../../types/finance";
@@ -101,14 +102,12 @@ export function RecurringPage() {
                   {formatMoney(entry.amount_cents)}
                 </span>
 
-                <button
-                  type="button"
-                  className="entry-action"
+                <IconButton
+                  icon="excluir"
+                  label={`Apagar ${entry.description}`}
+                  danger
                   onClick={() => handleDelete(entry)}
-                  aria-label={`Apagar ${entry.description}`}
-                >
-                  ×
-                </button>
+                />
               </li>
             ))}
           </ul>

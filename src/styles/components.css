@@ -483,26 +483,39 @@
   color: var(--danger);
 }
 
-.entry-action,
-.entry-action-placeholder {
+.entry-actions {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
-.entry-action {
+.icon-button,
+.entry-action-placeholder {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.icon-button {
   display: grid;
   place-items: center;
   background: none;
   border: 0;
   border-radius: var(--radius-sm);
   color: var(--text-subtle);
-  font-size: 18px;
-  line-height: 1;
   cursor: pointer;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
 }
 
-.entry-action:hover {
+.icon-button:hover {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+/* Excluir é destrutivo: o vermelho avisa antes do clique, o que um "x"
+   neutro não fazia. */
+.icon-button.is-danger:hover {
   background: var(--danger-soft);
   color: var(--danger);
 }
@@ -579,4 +592,41 @@
   width: 12px;
   height: 12px;
   margin-right: 0;
+}
+
+/* ------------------------------ selo de pago ------------------------------- */
+
+.entry-pending {
+  padding: 1px 6px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+.entry-form-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+.entry-form-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.entry-form-actions .btn {
+  width: auto;
+  min-width: 180px;
+}
+
+@media (max-width: 640px) {
+  .entry-form-actions {
+    flex-direction: column;
+  }
+
+  .entry-form-actions .btn {
+    width: 100%;
+  }
 }

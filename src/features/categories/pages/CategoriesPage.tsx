@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Alert } from "../../../components/ui/Alert";
 import { Card } from "../../../components/ui/Card";
 import { EmptyState } from "../../../components/ui/EmptyState";
+import { IconButton } from "../../../components/ui/IconButton";
 import { categoriesApi } from "../api/categories.api";
 import { CategoryForm } from "../components/CategoryForm";
 import type { Category } from "../types";
@@ -83,14 +84,12 @@ export function CategoriesPage() {
                   <span className="entry-meta">{category.kind_label}</span>
                 </span>
 
-                <button
-                  type="button"
-                  className="entry-action"
+                <IconButton
+                  icon="excluir"
+                  label={`Apagar ${category.name}`}
+                  danger
                   onClick={() => handleDelete(category)}
-                  aria-label={`Apagar ${category.name}`}
-                >
-                  ×
-                </button>
+                />
               </li>
             ))}
           </ul>

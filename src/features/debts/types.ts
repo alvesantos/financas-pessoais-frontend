@@ -50,3 +50,18 @@ export interface DebtsSummary {
   settled_count: number;
   percent: number;
 }
+
+/** O que fazer com as parcelas depois de amortizar. */
+export type AmortizationMode =
+  | "manter_parcela"
+  | "recalcular_parcela"
+  | "recalcular_parcelas";
+
+export interface AmortizeInput {
+  amount_cents: number;
+  /** Quando informado, define o saldo devedor final. */
+  new_remaining_cents?: number | null;
+  mode: AmortizationMode;
+  /** Vale só para "recalcular_parcelas". */
+  installments?: number | null;
+}

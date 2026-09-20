@@ -19,6 +19,7 @@ export function TransactionsPage() {
 
   const { transactions, summary, loading, error, reload } = useMonthData(year, month);
   const [deleteError, setDeleteError] = useState("");
+  const [editing, setEditing] = useState<Transaction | null>(null);
 
   function goTo([nextYear, nextMonthNumber]: [number, number]) {
     setYear(nextYear);
@@ -47,8 +48,18 @@ export function TransactionsPage() {
 
       <BalanceCards summary={summary} />
 
-      <Card title="Novo lançamento">
-        <TransactionForm onCreated={reload} />
+      <Card title={editing ? "Editar lançamento" : "Novo lançamento"}>
+        <TransactionForm
+          // A key remonta o formulário ao entrar e sair da edição, o que
+          // dispensa sincronizar props com estado.
+          key={editing?.id ?? "novo"}
+          editing={editing}
+          onCreated={() => {
+            setEditing(null);
+            reload();
+          }}
+          onCancelEdit={() => setEditing(null)}
+        />
       </Card>
 
       <Card title="Lançamentos do mês">
@@ -58,7 +69,11 @@ export function TransactionsPage() {
         {loading ? (
           <p className="loading-note">Carregando…</p>
         ) : (
-          <TransactionList transactions={transactions} onDelete={handleDelete} />
+          <TransactionList
+            transactions={transactions}
+            onDelete={handleDelete}
+            onEdit={setEditing}
+          />
         )}
       </Card>
     </div>

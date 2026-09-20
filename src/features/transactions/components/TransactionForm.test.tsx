@@ -8,6 +8,14 @@ vi.mock("../api/transactions.api", () => ({
   transactionsApi: { create: vi.fn(), listMonth: vi.fn(), summary: vi.fn(), remove: vi.fn() },
 }));
 
+vi.mock("../../cards/api/cards.api", () => ({
+  cardsApi: { list: vi.fn().mockResolvedValue([]), create: vi.fn(), update: vi.fn(), remove: vi.fn() },
+}));
+
+vi.mock("../../categories/api/categories.api", () => ({
+  categoriesApi: { list: vi.fn().mockResolvedValue([]), create: vi.fn(), remove: vi.fn() },
+}));
+
 vi.mock("../../recurring/api/recurring.api", () => ({
   recurringApi: { create: vi.fn(), list: vi.fn(), remove: vi.fn() },
 }));
@@ -24,6 +32,10 @@ const criado = {
   kind_label: "Despesa",
   occurred_at: "2026-09-20",
   projected: false,
+  paid: true,
+  credit_card_id: null,
+  credit_card_name: null,
+  invoice_month: null,
   category_id: null,
   category_name: null,
   category_color: null,

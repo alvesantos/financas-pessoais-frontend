@@ -1,4 +1,5 @@
 import { EmptyState } from "../../../components/ui/EmptyState";
+import { IconButton } from "../../../components/ui/IconButton";
 import { dayOfISO } from "../../../lib/dates";
 import { formatSignedMoney } from "../../../lib/money";
 import { isIncome } from "../../../types/finance";
@@ -7,6 +8,7 @@ import type { Transaction } from "../types";
 interface TransactionListProps {
   transactions: Transaction[];
   onDelete: (transaction: Transaction) => void;
+  onEdit: (transaction: Transaction) => void;
 }
 
 /**
@@ -25,7 +27,7 @@ function keyOf(transaction: Transaction): string {
   return `lancamento-${transaction.id}`;
 }
 
-export function TransactionList({ transactions, onDelete }: TransactionListProps) {
+export function TransactionList({ transactions, onDelete, onEdit }: TransactionListProps) {
   if (transactions.length === 0) {
     return (
       <EmptyState
@@ -67,6 +69,14 @@ export function TransactionList({ transactions, onDelete }: TransactionListProps
                   <span className="entry-tag">Fixo {transaction.frequency_label.toLowerCase()}</span>
                 </>
               )}
+              {!transaction.paid && (
+                <>
+                  {" · "}
+                  <span className="entry-pending">
+                    {isIncome(transaction.kind) ? "A receber" : "A pagar"}
+                  </span>
+                </>
+              )}
               {transaction.installment_number && (
                 <>
                   {" · "}
@@ -89,14 +99,19 @@ export function TransactionList({ transactions, onDelete }: TransactionListProps
               title={transaction.debt_id ? "Parcela de uma dívida" : "Gerado por um lançamento fixo"}
             />
           ) : (
-            <button
-              type="button"
-              className="entry-action"
-              onClick={() => onDelete(transaction)}
-              aria-label={`Apagar ${transaction.description}`}
-            >
-              ×
-            </button>
+            <span className="entry-actions">
+              <IconButton
+                icon="editar"
+                label={`Editar ${transaction.description}`}
+                onClick={() => onEdit(transaction)}
+              />
+              <IconButton
+                icon="excluir"
+                label={`Apagar ${transaction.description}`}
+                danger
+                onClick={() => onDelete(transaction)}
+              />
+            </span>
           )}
         </li>
       ))}

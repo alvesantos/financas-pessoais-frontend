@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { Alert } from "../../../components/ui/Alert";
+import { Button } from "../../../components/ui/Button";
 import { Card } from "../../../components/ui/Card";
 import { EmptyState } from "../../../components/ui/EmptyState";
+import { IconButton } from "../../../components/ui/IconButton";
 import { formatDayMonth } from "../../../lib/dates";
 import { formatMoney } from "../../../lib/money";
 import { debtsApi } from "../api/debts.api";
 import { DebtForm } from "../components/DebtForm";
+import { AmortizeDialog } from "../components/AmortizeDialog";
 import { DebtMeter } from "../components/DebtMeter";
+import { SettleDialog } from "../components/SettleDialog";
 import type { Debt } from "../types";
 import "./DebtsPage.css";
 
@@ -19,6 +23,8 @@ export function DebtsPage() {
     debts: [],
   });
   const [error, setError] = useState("");
+  const [amortizing, setAmortizing] = useState<Debt | null>(null);
+  const [settling, setSettling] = useState<Debt | null>(null);
 
   const loading = loaded.version !== version;
   const reload = useCallback(() => setVersion((current) => current + 1), []);
@@ -114,17 +120,28 @@ export function DebtsPage() {
                     </span>
                   </div>
 
-                  <button
-                    type="button"
-                    className="entry-action"
-                    onClick={() => handleDelete(debt)}
-                    aria-label={`Apagar ${debt.description}`}
-                  >
-                    ×
-                  </button>
+                  <span className="entry-actions">
+                    <IconButton
+                      icon="excluir"
+                      label={`Apagar ${debt.description}`}
+                      danger
+                      onClick={() => handleDelete(debt)}
+                    />
+                  </span>
                 </div>
 
                 <DebtMeter progress={debt.progress} />
+
+                {!debt.progress.settled && (
+                  <div className="debt-actions">
+                    <Button type="button" variant="ghost" onClick={() => setAmortizing(debt)}>
+                      Amortizar
+                    </Button>
+                    <Button type="button" variant="ghost" onClick={() => setSettling(debt)}>
+                      Quitar
+                    </Button>
+                  </div>
+                )}
 
                 <p className="debt-dates">
                   {debt.progress.next_due_date
@@ -140,6 +157,24 @@ export function DebtsPage() {
           </ul>
         )}
       </Card>
+
+      <AmortizeDialog
+        debt={amortizing}
+        onDone={() => {
+          setAmortizing(null);
+          reload();
+        }}
+        onClose={() => setAmortizing(null)}
+      />
+
+      <SettleDialog
+        debt={settling}
+        onDone={() => {
+          setSettling(null);
+          reload();
+        }}
+        onClose={() => setSettling(null)}
+      />
     </div>
   );
 }

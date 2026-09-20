@@ -20,6 +20,10 @@ export interface Transaction {
   category_id: number | null;
   category_name: string | null;
   category_color: string | null;
+  paid: boolean;
+  credit_card_id: number | null;
+  credit_card_name: string | null;
+  invoice_month: string | null;
   debt_id?: number;
   installment_number?: number;
   installments_total?: number;
@@ -41,4 +45,7 @@ export interface CreateTransactionInput {
   kind: Kind;
   occurred_at: string;
   category_id: number | null;
+  paid: boolean;
+  credit_card_id?: number | null;
+  invoice?: "atual" | "proxima";
 }

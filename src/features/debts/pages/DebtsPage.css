@@ -119,3 +119,15 @@
   background: var(--accent);
   border-radius: 999px;
 }
+
+.debt-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.debt-actions .btn {
+  width: auto;
+  min-width: 120px;
+  padding: 8px 16px;
+  font-size: 13.5px;
+}

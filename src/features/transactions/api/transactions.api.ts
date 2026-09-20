@@ -16,5 +16,8 @@ export const transactionsApi = {
   create: (input: CreateTransactionInput) =>
     httpClient.post<Transaction>("/transactions", { body: input }),
 
+  update: (id: number, input: CreateTransactionInput) =>
+    httpClient.put<Transaction>(`/transactions/${id}`, { body: input }),
+
   remove: (id: number) => httpClient.delete<void>(`/transactions/${id}`),
 };
