@@ -5,7 +5,7 @@ test.describe("cadastro", () => {
   test("cria a conta e abre o painel", async ({ page }) => {
     const conta = await cadastrar(page);
 
-    await expect(page.getByRole("heading", { name: "Olá, Gabe." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Painel", level: 1 })).toBeVisible();
     await expect(page.getByText(conta.nome)).toBeVisible();
   });
 
@@ -47,7 +47,7 @@ test.describe("login", () => {
 
     await entrar(page, conta.email, conta.senha);
 
-    await expect(page.getByRole("heading", { name: "Olá, Gabe." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Painel", level: 1 })).toBeVisible();
   });
 
   test("mostra erro geral com senha errada", async ({ page }) => {
@@ -74,7 +74,7 @@ test.describe("sessão", () => {
 
     await page.reload();
 
-    await expect(page.getByRole("heading", { name: "Olá, Gabe." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Painel", level: 1 })).toBeVisible();
   });
 
   test("manda visitante para o login ao abrir o painel", async ({ page }) => {
@@ -89,7 +89,7 @@ test.describe("sessão", () => {
 
     await page.goto("/login");
 
-    await expect(page.getByRole("heading", { name: /^Olá,/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Painel", level: 1 })).toBeVisible();
   });
 
   test("sair limpa a sessão e bloqueia o painel", async ({ page }) => {

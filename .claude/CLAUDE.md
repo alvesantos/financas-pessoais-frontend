@@ -1,6 +1,7 @@
-# Finanças — Web (React + TypeScript)
+# Finn — Web (React + TypeScript)
 
-Interface de finanças pessoais. Organização por feature, design minimalista.
+Interface do Finn — Finanças Pessoais. Organização por feature, design
+minimalista.
 
 ## Regras obrigatórias
 
@@ -76,6 +77,14 @@ Regras que não se quebram:
   correspondente, o resto vira mensagem única do formulário.
 - **Cores só por token** de `styles/tokens.css`. Nunca hex solto no
   componente. Todo token novo precisa do par claro/escuro.
+- **Dinheiro sempre em centavos**, como inteiro. Formatar e interpretar só
+  por `lib/money.ts` — nunca `toFixed` espalhado pelos componentes.
+- **Datas ISO são fatiadas como texto** (`lib/dates.ts`), não passadas por
+  `new Date`: `new Date("2026-09-20")` vira dia 19 em fusos a oeste.
+- **Gráfico novo passa pela skill `dataviz` antes de ser escrito.** Duas ou
+  mais séries exigem legenda e uma tabela com os mesmos números; uma série só
+  dispensa a legenda e usa rótulo direto. Par de cores novo precisa ser
+  validado para daltonismo nas duas superfícies antes de entrar.
 - Estilo de página fica ao lado da página; estilo de componente de `ui/`
   fica em `styles/components.css`.
 - Acessibilidade não é opcional: label com `htmlFor`, erro com

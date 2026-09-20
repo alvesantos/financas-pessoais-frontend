@@ -2,4 +2,6 @@
 export const paths = {
   login: "/login",
   dashboard: "/",
+  transactions: "/lancamentos",
+  recurring: "/fixos",
 } as const;

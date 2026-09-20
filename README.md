@@ -1,8 +1,8 @@
-# Finanças — Web
+# Finn — Web
 
-Interface em React + TypeScript para o controle de finanças pessoais.
-Organização por **feature**: cada domínio da aplicação guarda suas próprias
-páginas, componentes, chamadas de API e tipos.
+Interface em React + TypeScript do **Finn — Finanças Pessoais**. Organização
+por **feature**: cada domínio da aplicação guarda suas próprias páginas,
+componentes, chamadas de API e tipos.
 
 Design minimalista: paleta neutra, um único tom de destaque, tema claro e
 escuro seguindo o sistema.

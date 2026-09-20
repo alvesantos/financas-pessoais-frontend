@@ -1,24 +1,209 @@
-.app-shell {
-  min-height: 100%;
+/* -------------------------------- métricas -------------------------------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.stat-tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+.stat-value {
+  margin-top: 2px;
+  font-size: 21px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.stat-hint {
+  margin-top: 2px;
+  color: var(--text-subtle);
+  font-size: 11.5px;
+}
+
+.dashboard-note {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.dashboard-note strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* -------------------------------- gráficos -------------------------------- */
+
+.chart {
   display: flex;
   flex-direction: column;
+  gap: var(--space-3);
 }
 
-.app-main {
-  flex: 1;
-  width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 64px var(--space-6);
-}
-
-.app-main h1 {
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-2);
-}
-
-.app-main p {
+.chart-empty {
+  padding: var(--space-8) 0;
   color: var(--text-muted);
+  font-size: 13.5px;
+  text-align: center;
+}
+
+.chart-legend {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.chart-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  /* O texto da legenda usa tinta, nunca a cor da série. */
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+.chart-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.chart-plot {
+  position: relative;
+}
+
+.chart-plot svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.chart-tick {
+  fill: var(--chart-axis);
+  font-size: 10px;
+  font-family: var(--font);
+}
+
+.chart-tooltip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 6px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.chart-tooltip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-muted);
+}
+
+.chart-table summary {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.chart-table table {
+  width: 100%;
+  margin-top: var(--space-3);
+  border-collapse: collapse;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-table th,
+.chart-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+}
+
+.chart-table thead th,
+.chart-table tbody th {
+  color: var(--text-muted);
+  font-weight: 500;
+  text-align: left;
+}
+
+/* ----------------------------- barras ordenadas ---------------------------- */
+
+.ranked-bars {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ranked-bar-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: 6px;
+}
+
+.ranked-bar-label {
+  font-size: 13.5px;
+}
+
+.ranked-bar-value {
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ranked-bar-track {
+  height: 8px;
+  background: var(--surface-muted);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ranked-bar-fill {
+  height: 100%;
+  background: var(--chart-despesa);
+  border-radius: 999px;
+  transition: width 0.4s var(--ease);
+}
+
+.ranked-bar-share {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-subtle);
+  font-size: 11.5px;
+}
+
+@media (max-width: 720px) {
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-tooltip {
+    position: static;
+    margin-top: var(--space-2);
+  }
 }

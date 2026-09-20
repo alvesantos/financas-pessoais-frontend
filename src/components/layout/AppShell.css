@@ -1,0 +1,93 @@
+.app-shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: 12px var(--space-6);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.app-name strong {
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.app-name small {
+  color: var(--text-subtle);
+  font-size: 11px;
+}
+
+.app-nav {
+  display: flex;
+  gap: var(--space-1);
+  margin-right: auto;
+}
+
+.app-nav-link {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 14px;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.app-nav-link:hover {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.app-nav-link.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.app-header-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.app-main {
+  flex: 1;
+}
+
+@media (max-width: 720px) {
+  .app-header {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .app-nav {
+    order: 3;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .app-user-name {
+    display: none;
+  }
+}

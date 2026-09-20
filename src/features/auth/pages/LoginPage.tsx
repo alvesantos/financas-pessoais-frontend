@@ -27,6 +27,9 @@ export function LoginPage() {
       <div className="auth-card">
         <header className="auth-header">
           <Logo />
+          <p className="auth-brand">
+            <strong>Finn</strong> · Finanças Pessoais
+          </p>
           <h1>{text.title}</h1>
           <p>{text.subtitle}</p>
         </header>
@@ -46,7 +49,7 @@ export function LoginPage() {
         </footer>
       </div>
 
-      <p className="auth-legal">Finanças pessoais, sem ruído.</p>
+      <p className="auth-legal">Suas finanças, sem ruído.</p>
     </main>
   );
 }

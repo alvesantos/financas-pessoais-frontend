@@ -1,0 +1,5 @@
+/* A tela de fixos reaproveita .entries e .entry-form; só o espaçamento da
+   linha muda, porque aqui não existe o selo do dia. */
+.page .entry .entry-body:first-child {
+  padding-left: 2px;
+}
