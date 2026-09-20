@@ -132,6 +132,34 @@
   color: var(--text);
 }
 
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Reflexo que atravessa o botão uma vez a cada passagem do ponteiro. */
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.btn-primary:hover:not(:disabled)::after {
+  opacity: 1;
+  animation: sweep 0.7s var(--ease-out-expo);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
 .btn:active:not(:disabled) {
   transform: scale(0.99);
 }
@@ -194,7 +222,7 @@
 .page-header h1 {
   font-size: 24px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 .page-header p {
@@ -213,10 +241,28 @@
 /* ---------------------------------- cartão --------------------------------- */
 
 .card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+/* Fio de luz no topo do cartão, na cor de destaque, quase invisível até o
+   cartão receber atenção. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 18px auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-ring), transparent);
+  opacity: 0.7;
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
 }
 
 .card-header {
@@ -370,10 +416,17 @@
   width: 34px;
   height: 34px;
   background: var(--surface-muted);
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.entry:hover .entry-day {
+  border-color: var(--accent-ring);
+  color: var(--accent);
 }
 
 .entry-body {

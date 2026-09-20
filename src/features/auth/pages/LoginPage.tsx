@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Logo } from "../../../components/ui/Logo";
+import { ThemeToggle } from "../../theme/components/ThemeToggle";
 import { AuthForm, type AuthMode } from "../components/AuthForm";
 import "./LoginPage.css";
 
@@ -24,11 +25,15 @@ export function LoginPage() {
 
   return (
     <main className="auth">
+      <div className="auth-theme">
+        <ThemeToggle compact />
+      </div>
+
       <div className="auth-card">
         <header className="auth-header">
           <Logo />
           <p className="auth-brand">
-            <strong>Finn</strong> · Finanças Pessoais
+            <strong>Mnemio</strong> · Finanças
           </p>
           <h1>{text.title}</h1>
           <p>{text.subtitle}</p>

@@ -1,0 +1,94 @@
+/* ----------------------------------------------------------------
+   Movimento. Tudo aqui é curto e sutil: a animação orienta a leitura,
+   não disputa atenção com o conteúdo.
+
+   O reset zera as durações em prefers-reduced-motion, então nenhuma destas
+   regras precisa repetir a verificação.
+   ---------------------------------------------------------------- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes bar-rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes pulse-ring {
+  from {
+    box-shadow: 0 0 0 0 var(--accent-ring);
+  }
+  to {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+/* Cada bloco da página entra logo depois do anterior: o olho percorre a
+   tela na ordem em que ela foi montada. */
+.page > * {
+  animation: rise 0.45s var(--ease-out-expo) both;
+}
+
+.page > *:nth-child(1) {
+  animation-delay: 0.02s;
+}
+.page > *:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.page > *:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.page > *:nth-child(4) {
+  animation-delay: 0.14s;
+}
+.page > *:nth-child(n + 5) {
+  animation-delay: 0.18s;
+}
+
+/* As barras crescem do eixo, não de lugar nenhum. */
+.bar-grow {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: bar-rise 0.55s var(--ease-out-expo) both;
+}
+
+/* Linhas de lista entram em cascata curta, com teto para listas longas. */
+.entry {
+  animation: fade 0.3s var(--ease) both;
+}
+
+.entry:nth-child(1) {
+  animation-delay: 0.02s;
+}
+.entry:nth-child(2) {
+  animation-delay: 0.04s;
+}
+.entry:nth-child(3) {
+  animation-delay: 0.06s;
+}
+.entry:nth-child(4) {
+  animation-delay: 0.08s;
+}
+.entry:nth-child(n + 5) {
+  animation-delay: 0.1s;
+}

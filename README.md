@@ -1,11 +1,11 @@
-# Finn — Web
+# Mnemio — Web
 
-Interface em React + TypeScript do **Finn — Finanças Pessoais**. Organização
+Interface em React + TypeScript do **Mnemio — Finanças**. Organização
 por **feature**: cada domínio da aplicação guarda suas próprias páginas,
 componentes, chamadas de API e tipos.
 
-Design minimalista: paleta neutra, um único tom de destaque, tema claro e
-escuro seguindo o sistema.
+Design minimalista com pegada futurista: neutros frios, um azul de destaque,
+luz difusa ao fundo e movimento curto. Tema claro e escuro, alternável.
 
 ## Stack
 
@@ -72,6 +72,7 @@ src/
   styles/
     index.css             ponto de entrada
     tokens.css            variáveis de design (claro e escuro)
+    motion.css            keyframes e as entradas em cascata
     reset.css             reset e base
     components.css        estilos dos componentes de ui/
 ```
@@ -142,10 +143,10 @@ de origem e devolve o usuário a ela depois do login.
 
 ## Design
 
-Os tokens ficam em `src/styles/tokens.css`, no `:root`, e são redefinidos em
-`prefers-color-scheme: dark`. Para mudar a identidade visual, troque
-`--accent`, `--accent-hover`, `--accent-soft` e `--accent-contrast` — nada
-mais depende da cor.
+Os tokens ficam em `src/styles/tokens.css`: `:root` para o claro,
+`:root[data-theme="dark"]` para o escuro. Para mudar a identidade visual,
+troque `--accent`, `--accent-hover`, `--accent-soft`, `--accent-contrast` e
+`--accent-ring` — nada mais depende da cor.
 
 Acessibilidade: labels associadas por `htmlFor`, erros anunciados com
 `role="alert"` e `aria-describedby`, foco sempre visível, e as animações

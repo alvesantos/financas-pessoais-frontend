@@ -159,6 +159,6 @@ describe("AuthForm — criar conta", () => {
     await user.type(screen.getByLabelText("Senha"), "senha12345");
     await user.click(screen.getByRole("button", { name: "Criar conta" }));
 
-    await waitFor(() => expect(localStorage.getItem("financas.token")).toBe("token-abc"));
+    await waitFor(() => expect(localStorage.getItem("mnemio.token")).toBe("token-abc"));
   });
 });

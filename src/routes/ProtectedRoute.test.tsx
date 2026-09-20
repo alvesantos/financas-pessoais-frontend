@@ -40,7 +40,7 @@ describe("guardas de rota", () => {
   });
 
   it("libera a rota privada quando o token salvo é válido", async () => {
-    localStorage.setItem("financas.token", "token-abc");
+    localStorage.setItem("mnemio.token", "token-abc");
     vi.mocked(authApi.me).mockResolvedValue(usuario);
 
     renderRotas(paths.dashboard);
@@ -49,17 +49,17 @@ describe("guardas de rota", () => {
   });
 
   it("descarta o token que a API recusa e volta ao login", async () => {
-    localStorage.setItem("financas.token", "token-expirado");
+    localStorage.setItem("mnemio.token", "token-expirado");
     vi.mocked(authApi.me).mockRejectedValue(new Error("401"));
 
     renderRotas(paths.dashboard);
 
     expect(await screen.findByText("tela de login")).toBeInTheDocument();
-    expect(localStorage.getItem("financas.token")).toBeNull();
+    expect(localStorage.getItem("mnemio.token")).toBeNull();
   });
 
   it("tira do login quem já tem sessão", async () => {
-    localStorage.setItem("financas.token", "token-abc");
+    localStorage.setItem("mnemio.token", "token-abc");
     vi.mocked(authApi.me).mockResolvedValue(usuario);
 
     renderRotas(paths.login);

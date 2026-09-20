@@ -2,6 +2,7 @@ import { render, type RenderOptions } from "@testing-library/react";
 import type { ReactElement, ReactNode } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { AuthProvider } from "../features/auth/context/AuthProvider";
+import { ThemeProvider } from "../features/theme/context/ThemeProvider";
 
 interface Options extends Omit<RenderOptions, "wrapper"> {
   /** Rota inicial do MemoryRouter. */
@@ -15,9 +16,11 @@ interface Options extends Omit<RenderOptions, "wrapper"> {
 export function renderWithProviders(ui: ReactElement, { route = "/", ...options }: Options = {}) {
   function Wrapper({ children }: { children: ReactNode }) {
     return (
-      <MemoryRouter initialEntries={[route]}>
-        <AuthProvider>{children}</AuthProvider>
-      </MemoryRouter>
+      <ThemeProvider>
+        <MemoryRouter initialEntries={[route]}>
+          <AuthProvider>{children}</AuthProvider>
+        </MemoryRouter>
+      </ThemeProvider>
     );
   }
 

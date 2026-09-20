@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { Icon, type IconName } from "../ui/Icon";
+import { ThemeToggle } from "../../features/theme/components/ThemeToggle";
 import { Logo } from "../ui/Logo";
 import { useAuth } from "../../features/auth/hooks/useAuth";
 import { paths } from "../../routes/paths";
 import "./AppShell.css";
 
-const STORAGE_KEY = "finn.sidebar.collapsed";
+const STORAGE_KEY = "mnemio.sidebar.collapsed";
 
 const menu: { to: string; label: string; icon: IconName }[] = [
   { to: paths.dashboard, label: "Painel", icon: "painel" },
@@ -43,8 +44,8 @@ export function AppShell() {
         <div className="sidebar-brand">
           <Logo size={28} />
           <span className="sidebar-name">
-            <strong>Finn</strong>
-            <small>Finanças Pessoais</small>
+            <strong>Mnemio</strong>
+            <small>Finanças</small>
           </span>
         </div>
 
@@ -66,6 +67,8 @@ export function AppShell() {
         </nav>
 
         <div className="sidebar-footer">
+          <ThemeToggle />
+
           <button
             type="button"
             className="sidebar-toggle"

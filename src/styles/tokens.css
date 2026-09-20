@@ -1,41 +1,91 @@
 /* ----------------------------------------------------------------
-   Tokens de design — paleta neutra com um único tom de destaque.
-   Para mudar a identidade visual, troque apenas os --accent-*.
+   Mnemio — tokens de design.
+
+   O tema é escolhido antes da primeira pintura por um script em
+   index.html, que escreve data-theme no <html>. Como a aplicação é uma SPA
+   e não roda sem JavaScript, não há caminho em que o atributo falte — por
+   isso os tokens escuros vivem em um só lugar, sem duplicar em media query.
    ---------------------------------------------------------------- */
 :root {
   color-scheme: light;
 
-  --bg: #fbfbfa;
+  --bg: #f6f8fc;
   --surface: #ffffff;
-  --surface-muted: #f4f4f2;
-  --border: #e6e6e2;
-  --border-strong: #d4d4cf;
+  --surface-muted: #eff3fa;
+  --surface-raised: #ffffff;
+  --border: #e2e8f3;
+  --border-strong: #cbd6e8;
 
-  --text: #16161a;
-  --text-muted: #6b6b73;
-  --text-subtle: #9a9aa3;
+  --text: #0f172a;
+  --text-muted: #5b6b85;
+  --text-subtle: #94a3b8;
 
-  --accent: #1f7a5a;
-  --accent-hover: #196349;
-  --accent-soft: #eaf4f0;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-soft: #e7efff;
   --accent-contrast: #ffffff;
+  --accent-ring: rgba(37, 99, 235, 0.18);
 
-  --danger: #b4382f;
-  --danger-soft: #fbeceb;
+  --danger: #dc2626;
+  --danger-soft: #fdeaea;
 
-  /* Séries dos gráficos. O par passa nos testes de daltonismo em claro e
-     escuro (ΔE >= 23 em protanopia), por isso é o mesmo nos dois temas. */
+  /* Brilho de fundo: duas luzes frias, bem diluídas. */
+  --aura-1: rgba(37, 99, 235, 0.1);
+  --aura-2: rgba(14, 165, 233, 0.08);
+
+  --chart-grid: #e8edf6;
+  --chart-axis: #94a3b8;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow: 0 16px 40px -18px rgba(15, 23, 42, 0.22);
+  --shadow-glow: 0 0 0 1px var(--accent-ring), 0 10px 30px -12px var(--accent-ring);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #080b13;
+  --surface: #0f1523;
+  --surface-muted: #161d2e;
+  --surface-raised: #131a2b;
+  --border: #1e2941;
+  --border-strong: #2e3b58;
+
+  --text: #e9eefb;
+  --text-muted: #9aa8c2;
+  --text-subtle: #64748b;
+
+  --accent: #4d8dff;
+  --accent-hover: #6fa4ff;
+  --accent-soft: #14213c;
+  --accent-contrast: #061021;
+  --accent-ring: rgba(77, 141, 255, 0.26);
+
+  --danger: #f87171;
+  --danger-soft: #2a1618;
+
+  --aura-1: rgba(77, 141, 255, 0.16);
+  --aura-2: rgba(56, 189, 248, 0.1);
+
+  --chart-grid: #1b2439;
+  --chart-axis: #64748b;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow: 0 20px 50px -22px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 0 1px var(--accent-ring), 0 12px 36px -14px var(--accent-ring);
+}
+
+/* Séries dos gráficos. O par passa nos testes de daltonismo nas duas
+   superfícies (ΔE 23,4 em protanopia), por isso é o mesmo nos dois temas. */
+:root {
   --chart-receita: #0284c7;
   --chart-despesa: #ea580c;
-  --chart-grid: #ececea;
-  --chart-axis: #9a9aa3;
+}
 
+:root {
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 18px;
-
-  --shadow-sm: 0 1px 2px rgba(22, 22, 26, 0.05);
-  --shadow: 0 12px 36px -12px rgba(22, 22, 26, 0.14);
 
   --space-1: 4px;
   --space-2: 8px;
@@ -48,34 +98,7 @@
     "Helvetica Neue", Arial, sans-serif;
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-
-    --bg: #0e0e10;
-    --surface: #161619;
-    --surface-muted: #1d1d21;
-    --border: #262629;
-    --border-strong: #35353a;
-
-    --text: #f2f2f0;
-    --text-muted: #9c9ca5;
-    --text-subtle: #6c6c75;
-
-    --accent: #3ba17c;
-    --accent-hover: #47b68d;
-    --accent-soft: #14251f;
-    --accent-contrast: #0b1712;
-
-    --danger: #e06b60;
-    --danger-soft: #2a1715;
-
-    --chart-grid: #26262a;
-    --chart-axis: #6c6c75;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow: 0 16px 44px -14px rgba(0, 0, 0, 0.65);
-  }
+  /* Saída rápida com desaceleração longa: dá a sensação de resposta imediata. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 }

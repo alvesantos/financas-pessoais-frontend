@@ -122,14 +122,18 @@ export function YearChart({ data, year }: YearChartProps) {
                   fill={hovered === index ? "var(--surface-muted)" : "transparent"}
                 />
 
-                <path
-                  d={barPath(receitaX, baseline - scale(month.receitas_cents), barWidth, scale(month.receitas_cents), 4)}
-                  fill="var(--chart-receita)"
-                />
-                <path
-                  d={barPath(despesaX, baseline - scale(month.despesas_cents), barWidth, scale(month.despesas_cents), 4)}
-                  fill="var(--chart-despesa)"
-                />
+                {/* O atraso por mês faz a série desenhar da esquerda para a
+                    direita, na ordem em que se lê o eixo. */}
+                <g className="bar-grow" style={{ animationDelay: `${index * 0.03}s` }}>
+                  <path
+                    d={barPath(receitaX, baseline - scale(month.receitas_cents), barWidth, scale(month.receitas_cents), 4)}
+                    fill="var(--chart-receita)"
+                  />
+                  <path
+                    d={barPath(despesaX, baseline - scale(month.despesas_cents), barWidth, scale(month.despesas_cents), 4)}
+                    fill="var(--chart-despesa)"
+                  />
+                </g>
 
                 <text
                   x={groupX + groupWidth / 2}

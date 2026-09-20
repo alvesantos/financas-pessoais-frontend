@@ -2,4 +2,5 @@
    do componente que os usa. */
 @import "./tokens.css";
 @import "./reset.css";
+@import "./motion.css";
 @import "./components.css";

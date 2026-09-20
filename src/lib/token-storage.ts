@@ -1,4 +1,4 @@
-const TOKEN_KEY = "financas.token";
+const TOKEN_KEY = "mnemio.token";
 
 /**
  * Acesso ao token de sessão. Todo uso passa por try/catch: em aba anônima ou

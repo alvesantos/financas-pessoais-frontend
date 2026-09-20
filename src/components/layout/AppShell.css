@@ -13,6 +13,7 @@
 
 .sidebar {
   display: flex;
+  backdrop-filter: blur(8px);
   flex-direction: column;
   gap: var(--space-6);
   padding: var(--space-4) var(--space-3);
@@ -84,10 +85,43 @@
   color: var(--text);
 }
 
+.sidebar-link {
+  position: relative;
+}
+
 .sidebar-link.is-active {
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 500;
+}
+
+/* Marca vertical que cresce ao entrar na seção. */
+.sidebar-link.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2px;
+  height: 18px;
+  background: var(--accent);
+  border-radius: 999px;
+  transform: translateY(-50%) scaleY(0);
+  transform-origin: center;
+  animation: mark-in 0.35s var(--ease-spring) forwards;
+}
+
+@keyframes mark-in {
+  to {
+    transform: translateY(-50%) scaleY(1);
+  }
+}
+
+.sidebar-link svg {
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.sidebar-link:hover svg {
+  transform: translateY(-1px) scale(1.06);
 }
 
 .sidebar-footer {

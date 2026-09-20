@@ -1,7 +1,7 @@
-# Finn — Web (React + TypeScript)
+# Mnemio — Web (React + TypeScript)
 
-Interface do Finn — Finanças Pessoais. Organização por feature, design
-minimalista.
+Interface do Mnemio — Finanças. Organização por feature, design minimalista
+com pegada futurista.
 
 ## Regras obrigatórias
 
@@ -76,7 +76,13 @@ Regras que não se quebram:
 - Erros de API viram `ApiError`: `error.fields` vai para o input
   correspondente, o resto vira mensagem única do formulário.
 - **Cores só por token** de `styles/tokens.css`. Nunca hex solto no
-  componente. Todo token novo precisa do par claro/escuro.
+  componente. Todo token novo precisa existir nos dois blocos: `:root` e
+  `:root[data-theme="dark"]`.
+- **O tema vem do `data-theme` no `<html>`**, aplicado antes da primeira
+  pintura pelo script em `index.html`. Nada de `prefers-color-scheme` em
+  regra de componente — isso ignoraria a escolha da pessoa.
+- **Keyframes ficam em `styles/motion.css`**, não espalhados. O reset já zera
+  as durações em `prefers-reduced-motion`.
 - **Dinheiro sempre em centavos**, como inteiro. Formatar e interpretar só
   por `lib/money.ts` — nunca `toFixed` espalhado pelos componentes.
 - **Datas ISO são fatiadas como texto** (`lib/dates.ts`), não passadas por
