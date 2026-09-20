@@ -1,93 +1,196 @@
 .app-shell {
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 224px 1fr;
+  transition: grid-template-columns 0.2s var(--ease);
 }
 
-.app-header {
+.app-shell.is-collapsed {
+  grid-template-columns: 68px 1fr;
+}
+
+/* ------------------------------- menu lateral ------------------------------ */
+
+.sidebar {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--space-6);
-  padding: 12px var(--space-6);
-  border-bottom: 1px solid var(--border);
+  padding: var(--space-4) var(--space-3);
+  border-right: 1px solid var(--border);
   background: var(--surface);
   position: sticky;
   top: 0;
-  z-index: 10;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.app-header-brand {
+.sidebar-brand {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 0 6px;
+  min-height: 32px;
 }
 
-.app-name {
+.sidebar-name {
   display: flex;
   flex-direction: column;
   line-height: 1.15;
+  white-space: nowrap;
 }
 
-.app-name strong {
+.sidebar-name strong {
   font-size: 15px;
   letter-spacing: -0.01em;
 }
 
-.app-name small {
+.sidebar-name small {
   color: var(--text-subtle);
   font-size: 11px;
 }
 
-.app-nav {
+.sidebar-nav {
   display: flex;
-  gap: var(--space-1);
-  margin-right: auto;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
 }
 
-.app-nav-link {
-  padding: 6px 12px;
+.sidebar-link,
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 0;
   border-radius: var(--radius-sm);
+  background: none;
   color: var(--text-muted);
   font-size: 14px;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
   transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
 }
 
-.app-nav-link:hover {
+.sidebar-link svg,
+.sidebar-toggle svg {
+  flex-shrink: 0;
+}
+
+.sidebar-link:hover,
+.sidebar-toggle:hover {
   background: var(--surface-muted);
   color: var(--text);
 }
 
-.app-nav-link.is-active {
+.sidebar-link.is-active {
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 500;
 }
 
-.app-header-user {
+.sidebar-footer {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--space-3);
-  font-size: 14px;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.sidebar-user {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 10px;
+  font-size: 13px;
   color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar-user-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-user .link {
+  align-self: flex-start;
+  font-size: 13px;
+}
+
+/* Recolhido: sobram os ícones, e o rótulo continua no nome acessível. */
+.is-collapsed .sidebar-name,
+.is-collapsed .sidebar-link-label,
+.is-collapsed .sidebar-user-name {
+  /* clip em vez de display:none para o texto seguir legível por leitores. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.is-collapsed .sidebar-link,
+.is-collapsed .sidebar-toggle {
+  justify-content: center;
+  padding: 9px 0;
+}
+
+.is-collapsed .sidebar-user {
+  align-items: center;
+  padding: 0;
+}
+
+.is-collapsed .sidebar-user .link {
+  align-self: center;
 }
 
 .app-main {
-  flex: 1;
+  min-width: 0;
 }
 
+/* Em telas estreitas o menu vira uma faixa de ícones no topo. */
 @media (max-width: 720px) {
-  .app-header {
-    flex-wrap: wrap;
+  .app-shell,
+  .app-shell.is-collapsed {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    align-items: center;
     gap: var(--space-3);
+    height: auto;
+    padding: var(--space-2) var(--space-3);
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .app-nav {
-    order: 3;
-    width: 100%;
-    margin-right: 0;
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: center;
   }
 
-  .app-user-name {
+  .sidebar-footer {
+    flex-direction: row;
+    align-items: center;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .sidebar-toggle,
+  .sidebar-name,
+  .sidebar-user-name {
     display: none;
+  }
+
+  .sidebar-link-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
   }
 }

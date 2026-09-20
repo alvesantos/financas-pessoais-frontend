@@ -33,8 +33,6 @@ export function DashboardPage() {
       .finally(() => {
         if (!controller.signal.aborted) setLoading(false);
       });
-
-    return () => controller.abort();
   }, []);
 
   if (loading) {
@@ -57,31 +55,20 @@ export function DashboardPage() {
     <div className="page">
       <header className="page-header">
         <h1>Painel</h1>
-        <p>
-          {monthName(mesAtual)} de {anoAtual}, e o ano inteiro em volta.
-        </p>
       </header>
 
-      <section className="stat-grid" aria-label={`Resumo de ${anoAtual}`}>
-        <StatTile label={`Saldo de ${anoAtual}`} cents={data.year.saldo_cents} signed hint="Receitas menos tudo que sai" />
-        <StatTile label="Receitas no ano" cents={data.year.receitas_cents} />
-        <StatTile label="Despesas no ano" cents={data.year.despesas_cents} />
-      </section>
-
-      <section className="stat-grid" aria-label={`Resumo de ${monthName(mesAtual)}`}>
+      <section className="stat-grid is-primary" aria-label="Situação atual">
         <StatTile
-          label="Saldo atual do mês"
-          cents={data.month.saldo_atual_cents}
+          label="Saldo atual"
+          cents={data.saldo_atual_cents}
           signed
-          hint="Até hoje"
+          hint="Tudo que já foi pago e recebido, desde a primeira movimentação"
         />
         <StatTile
-          label="Saldo previsto do mês"
-          cents={data.month.saldo_previsto_cents}
-          signed
-          hint="Com os fixos que ainda vão cair"
+          label="Despesas fixas"
+          cents={data.despesas_fixas_cents}
+          hint="Seu custo de vida atual"
         />
-        <StatTile label="Despesas do mês" cents={data.month.despesas_cents} />
       </section>
 
       <Card title={`Receitas e despesas em ${anoAtual}`}>

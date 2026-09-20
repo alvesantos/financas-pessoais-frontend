@@ -24,6 +24,11 @@ export interface KindTotal {
 }
 
 export interface Dashboard {
+  /** Acumulado de tudo que já foi pago e recebido, desde a primeira
+   *  movimentação — não é recortado por mês nem por ano. */
+  saldo_atual_cents: number;
+  /** O que os fixos de saída somam no mês: o custo de vida. */
+  despesas_fixas_cents: number;
   year: YearTotals;
   month: MonthSummary;
   por_mes: MonthTotals[];

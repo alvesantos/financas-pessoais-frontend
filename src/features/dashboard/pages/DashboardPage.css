@@ -2,8 +2,17 @@
 
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-3);
+}
+
+/* A primeira faixa carrega os dois números que respondem "como estou hoje". */
+.stat-grid.is-primary .stat-value {
+  font-size: 27px;
+}
+
+.stat-grid.is-primary .stat-tile {
+  padding: var(--space-6);
 }
 
 .stat-tile {

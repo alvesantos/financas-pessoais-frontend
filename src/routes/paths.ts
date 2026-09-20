@@ -4,4 +4,5 @@ export const paths = {
   dashboard: "/",
   transactions: "/lancamentos",
   recurring: "/fixos",
+  categories: "/categorias",
 } as const;
