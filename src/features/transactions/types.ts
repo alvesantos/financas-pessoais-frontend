@@ -20,6 +20,9 @@ export interface Transaction {
   category_id: number | null;
   category_name: string | null;
   category_color: string | null;
+  debt_id?: number;
+  installment_number?: number;
+  installments_total?: number;
 }
 
 export interface MonthSummary {

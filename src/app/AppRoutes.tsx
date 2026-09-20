@@ -3,6 +3,7 @@ import { AppShell } from "../components/layout/AppShell";
 import { LoginPage } from "../features/auth/pages/LoginPage";
 import { CategoriesPage } from "../features/categories/pages/CategoriesPage";
 import { DashboardPage } from "../features/dashboard/pages/DashboardPage";
+import { DebtsPage } from "../features/debts/pages/DebtsPage";
 import { RecurringPage } from "../features/recurring/pages/RecurringPage";
 import { TransactionsPage } from "../features/transactions/pages/TransactionsPage";
 import { ProtectedRoute } from "../routes/ProtectedRoute";
@@ -24,6 +25,7 @@ export function AppRoutes() {
           <Route path={paths.transactions} element={<TransactionsPage />} />
           <Route path={paths.recurring} element={<RecurringPage />} />
           <Route path={paths.categories} element={<CategoriesPage />} />
+          <Route path={paths.debts} element={<DebtsPage />} />
         </Route>
       </Route>
 

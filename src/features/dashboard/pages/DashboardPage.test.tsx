@@ -31,6 +31,14 @@ const painel: Dashboard = {
     { category_id: 1, label: "Mercado", color: "#aabbcc", total_cents: 200000 },
   ],
   maior_gasto: null,
+  dividas: {
+    total_cents: 0,
+    paid_cents: 0,
+    remaining_cents: 0,
+    open_count: 0,
+    settled_count: 0,
+    percent: 0,
+  },
 };
 
 beforeEach(() => {
@@ -98,6 +106,34 @@ describe("DashboardPage", () => {
     await screen.findByText("Saldo atual");
 
     expect(screen.queryByText(/e o ano inteiro em volta/)).not.toBeInTheDocument();
+  });
+
+  it("esconde o bloco de dívidas quando não há nenhuma em aberto", async () => {
+    render(<DashboardPage />);
+    await screen.findByText("Saldo atual");
+
+    expect(screen.queryByText("Falta pagar em dívidas")).not.toBeInTheDocument();
+  });
+
+  it("mostra o que falta pagar quando há dívida em aberto", async () => {
+    vi.mocked(dashboardApi.overview).mockResolvedValue({
+      ...painel,
+      dividas: {
+        total_cents: 1843086,
+        paid_cents: 877660,
+        remaining_cents: 965426,
+        open_count: 1,
+        settled_count: 0,
+        percent: 47,
+      },
+    });
+
+    render(<DashboardPage />);
+
+    expect(await screen.findByText("Falta pagar em dívidas")).toBeInTheDocument();
+    expect(screen.getByText(/9\.654,26/)).toBeInTheDocument();
+    expect(screen.getByText("1 dívida em aberto")).toBeInTheDocument();
+    expect(screen.getByText("47% do total das dívidas")).toBeInTheDocument();
   });
 
   it("mostra o erro quando o painel não carrega", async () => {

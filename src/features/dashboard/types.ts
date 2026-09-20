@@ -1,3 +1,4 @@
+import type { DebtsSummary } from "../debts/types";
 import type { Transaction } from "../transactions/types";
 import type { MonthSummary } from "../transactions/types";
 
@@ -46,4 +47,5 @@ export interface Dashboard {
   gastos_por_tipo: KindTotal[];
   gastos_por_categoria: CategoryTotal[];
   maior_gasto: Transaction | null;
+  dividas: DebtsSummary;
 }

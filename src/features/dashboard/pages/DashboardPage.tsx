@@ -66,6 +66,25 @@ export function DashboardPage() {
         />
       </section>
 
+      {data.dividas.open_count > 0 && (
+        <section className="stat-grid" aria-label="Dívidas">
+          <StatTile
+            label="Falta pagar em dívidas"
+            cents={data.dividas.remaining_cents}
+            hint={
+              data.dividas.open_count === 1
+                ? "1 dívida em aberto"
+                : `${data.dividas.open_count} dívidas em aberto`
+            }
+          />
+          <StatTile
+            label="Já quitado"
+            cents={data.dividas.paid_cents}
+            hint={`${data.dividas.percent}% do total das dívidas`}
+          />
+        </section>
+      )}
+
       <Card title={`Receitas e despesas em ${anoAtual}`}>
         <YearChart data={data.por_mes} year={anoAtual} />
       </Card>

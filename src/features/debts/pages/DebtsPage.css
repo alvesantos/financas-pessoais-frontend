@@ -1,0 +1,121 @@
+.debts {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.debt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border);
+  animation: fade 0.3s var(--ease) both;
+}
+
+.debt:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.debt-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.debt-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.debt-title strong {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.debt-dates {
+  color: var(--text-subtle);
+  font-size: 12px;
+}
+
+/* Quitada some do primeiro plano, mas continua consultável. */
+.debt.is-settled .debt-title strong,
+.debt.is-settled .debt-dates {
+  color: var(--text-muted);
+}
+
+/* --------------------------------- medidor -------------------------------- */
+
+.debt-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.debt-meter-head,
+.debt-meter-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.debt-meter-count {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.debt-meter-percent {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.debt-meter-foot {
+  font-size: 12.5px;
+  color: var(--text-subtle);
+}
+
+.debt-meter-remaining {
+  color: var(--text-muted);
+}
+
+.debt.is-settled .debt-meter-percent,
+.debt.is-settled .debt-meter-remaining {
+  color: var(--accent);
+}
+
+/* O <progress> nativo precisa do appearance zerado para aceitar estilo. */
+.debt-meter-bar {
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  /* Trilho no mesmo tom do preenchimento, mais claro: o estado é lido ao
+     longo da barra inteira, não só na parte preenchida. */
+  background: var(--accent-soft);
+  overflow: hidden;
+}
+
+.debt-meter-bar::-webkit-progress-bar {
+  background: var(--accent-soft);
+  border-radius: 999px;
+}
+
+.debt-meter-bar::-webkit-progress-value {
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.5s var(--ease-out-expo);
+}
+
+.debt-meter-bar::-moz-progress-bar {
+  background: var(--accent);
+  border-radius: 999px;
+}

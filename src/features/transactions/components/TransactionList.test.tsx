@@ -49,6 +49,23 @@ const receita: Transaction = {
   category_color: null,
 };
 
+const parcela: Transaction = {
+  id: 0,
+  description: "Empréstimo",
+  amount_cents: 87766,
+  signed_cents: -87766,
+  kind: "despesa",
+  kind_label: "Despesa",
+  occurred_at: "2026-12-07",
+  projected: true,
+  category_id: null,
+  category_name: null,
+  category_color: null,
+  debt_id: 4,
+  installment_number: 3,
+  installments_total: 21,
+};
+
 describe("TransactionList", () => {
   it("mostra o dia, a descrição e o tipo embaixo dela", () => {
     render(<TransactionList transactions={[avulso]} onDelete={vi.fn()} />);
@@ -104,6 +121,18 @@ describe("TransactionList", () => {
 
     expect(screen.getByText(/\+.*5\.000,00/)).toBeInTheDocument();
     expect(screen.getByText(/-.*85,50/)).toBeInTheDocument();
+  });
+
+  it("marca a linha vinda de uma dívida com o número da parcela", () => {
+    render(<TransactionList transactions={[parcela]} onDelete={vi.fn()} />);
+
+    expect(screen.getByText("Parcela 3/21")).toBeInTheDocument();
+  });
+
+  it("não oferece apagar uma parcela, que não existe como linha", () => {
+    render(<TransactionList transactions={[parcela]} onDelete={vi.fn()} />);
+
+    expect(screen.queryByRole("button", { name: /Apagar/ })).not.toBeInTheDocument();
   });
 
   it("explica o estado vazio em vez de só mostrar nada", () => {

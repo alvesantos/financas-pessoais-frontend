@@ -11,8 +11,20 @@ interface TransactionListProps {
 
 /**
  * Lista do mês. Cada linha traz o dia, a descrição e, embaixo dela, a
- * categoria, o tipo e a frequência, quando a linha veio de um fixo.
+ * categoria, o tipo e a origem: a frequência quando veio de um fixo, o
+ * número da parcela quando veio de uma dívida.
  */
+/** Projeções não têm id próprio, então a chave vem da origem e da data. */
+function keyOf(transaction: Transaction): string {
+  if (transaction.debt_id) {
+    return `divida-${transaction.debt_id}-${transaction.installment_number}`;
+  }
+  if (transaction.recurring_id) {
+    return `fixo-${transaction.recurring_id}-${transaction.occurred_at}`;
+  }
+  return `lancamento-${transaction.id}`;
+}
+
 export function TransactionList({ transactions, onDelete }: TransactionListProps) {
   if (transactions.length === 0) {
     return (
@@ -27,7 +39,7 @@ export function TransactionList({ transactions, onDelete }: TransactionListProps
     <ul className="entries">
       {transactions.map((transaction) => (
         <li
-          key={transaction.projected ? `fixo-${transaction.recurring_id}-${transaction.occurred_at}` : transaction.id}
+          key={keyOf(transaction)}
           className="entry"
         >
           <span className="entry-day" aria-label={`Dia ${dayOfISO(transaction.occurred_at)}`}>
@@ -55,6 +67,14 @@ export function TransactionList({ transactions, onDelete }: TransactionListProps
                   <span className="entry-tag">Fixo {transaction.frequency_label.toLowerCase()}</span>
                 </>
               )}
+              {transaction.installment_number && (
+                <>
+                  {" · "}
+                  <span className="entry-tag">
+                    Parcela {transaction.installment_number}/{transaction.installments_total}
+                  </span>
+                </>
+              )}
             </span>
           </span>
 
@@ -63,8 +83,11 @@ export function TransactionList({ transactions, onDelete }: TransactionListProps
           </span>
 
           {transaction.projected ? (
-            // Projeções não existem como linha: só some tirando o fixo.
-            <span className="entry-action-placeholder" title="Gerado por um lançamento fixo" />
+            // Projeções não existem como linha: só somem tirando a origem.
+            <span
+              className="entry-action-placeholder"
+              title={transaction.debt_id ? "Parcela de uma dívida" : "Gerado por um lançamento fixo"}
+            />
           ) : (
             <button
               type="button"
