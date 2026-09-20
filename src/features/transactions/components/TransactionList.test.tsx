@@ -13,6 +13,9 @@ const avulso: Transaction = {
   kind_label: "Despesa",
   occurred_at: "2026-09-05",
   projected: false,
+  category_id: 3,
+  category_name: "Mercado",
+  category_color: "#aabbcc",
 };
 
 const projetado: Transaction = {
@@ -27,6 +30,9 @@ const projetado: Transaction = {
   recurring_id: 3,
   frequency: "mensal",
   frequency_label: "Mensal",
+  category_id: null,
+  category_name: null,
+  category_color: null,
 };
 
 const receita: Transaction = {
@@ -38,15 +44,35 @@ const receita: Transaction = {
   kind_label: "Receita",
   occurred_at: "2026-09-01",
   projected: false,
+  category_id: null,
+  category_name: null,
+  category_color: null,
 };
 
 describe("TransactionList", () => {
   it("mostra o dia, a descrição e o tipo embaixo dela", () => {
     render(<TransactionList transactions={[avulso]} onDelete={vi.fn()} />);
 
-    expect(screen.getByText("Mercado")).toBeInTheDocument();
     expect(screen.getByText("05")).toBeInTheDocument();
     expect(screen.getByText(/Despesa/)).toBeInTheDocument();
+  });
+
+  it("mostra a categoria embaixo da descrição", () => {
+    render(<TransactionList transactions={[avulso]} onDelete={vi.fn()} />);
+
+    // "Mercado" aqui é a categoria; a descrição do lançamento é a mesma
+    // palavra, então a busca é pelo bloco de metadados.
+    const meta = document.querySelector(".entry-meta");
+    expect(meta).toHaveTextContent("Mercado");
+    expect(meta).toHaveTextContent("Despesa");
+  });
+
+  it("linha sem categoria não inventa uma", () => {
+    render(<TransactionList transactions={[receita]} onDelete={vi.fn()} />);
+
+    const meta = document.querySelector(".entry-meta");
+    expect(meta).toHaveTextContent("Receita");
+    expect(meta?.querySelector(".category-dot")).toBeNull();
   });
 
   it("marca a linha vinda de um fixo com a frequência", () => {

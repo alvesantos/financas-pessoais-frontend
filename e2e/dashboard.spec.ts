@@ -57,20 +57,15 @@ test.describe("painel", () => {
     await expect(page.getByText("Despesas do mês")).toHaveCount(0);
   });
 
-  test("o gráfico de gastos ordena do maior para o menor", async ({ page }) => {
+  test("gastos sem categoria caem no balde Sem categoria", async ({ page }) => {
     await cadastrar(page);
     await irParaLancamentos(page);
 
-    await criarLancamento(page, { valor: "200", tipo: "investimento" });
     await criarLancamento(page, { valor: "900", tipo: "despesa" });
-    await criarLancamento(page, { valor: "500", tipo: "cartao_credito" });
 
     await page.getByRole("link", { name: "Painel" }).click();
 
-    const barras = page.locator(".ranked-bar-label");
-    await expect(barras.nth(0)).toHaveText("Despesa");
-    await expect(barras.nth(1)).toHaveText("Gasto no cartão de crédito");
-    await expect(barras.nth(2)).toHaveText("Investimento");
+    await expect(page.locator(".ranked-bar-label").first()).toContainText("Sem categoria");
   });
 
   test("o gráfico do ano também traz os números em tabela", async ({ page }) => {

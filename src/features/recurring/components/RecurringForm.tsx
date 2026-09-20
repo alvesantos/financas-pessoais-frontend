@@ -9,6 +9,7 @@ import { ApiError, type FieldErrors } from "../../../lib/api-error";
 import { parseMoneyToCents } from "../../../lib/money";
 import { allFrequencies, allKinds, frequencyLabels, kindLabels } from "../../../types/finance";
 import type { Frequency, Kind } from "../../../types/finance";
+import { CategorySelect } from "../../categories/components/CategorySelect";
 import { recurringApi } from "../api/recurring.api";
 
 const kindOptions = allKinds.map((kind) => ({ value: kind, label: kindLabels[kind] }));
@@ -24,6 +25,7 @@ export function RecurringForm({ onCreated }: { onCreated: () => void }) {
   const [description, setDescription] = useState("");
   const [frequency, setFrequency] = useState<Frequency>("mensal");
   const [startDate, setStartDate] = useState(todayISO());
+  const [categoryId, setCategoryId] = useState<number | null>(null);
 
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState("");
@@ -48,6 +50,7 @@ export function RecurringForm({ onCreated }: { onCreated: () => void }) {
         kind,
         frequency,
         start_date: startDate,
+        category_id: categoryId,
       });
 
       setAmount("");
@@ -92,6 +95,13 @@ export function RecurringForm({ onCreated }: { onCreated: () => void }) {
       </div>
 
       <div className="entry-form-row">
+        <CategorySelect
+          kind={kind}
+          value={categoryId}
+          onChange={setCategoryId}
+          error={fieldErrors.category_id}
+        />
+
         <TextField
           label="Começa em"
           name="start_date"

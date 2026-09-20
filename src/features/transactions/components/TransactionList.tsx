@@ -10,8 +10,8 @@ interface TransactionListProps {
 }
 
 /**
- * Lista do mês. Cada linha traz o dia, a descrição e, embaixo dela, o tipo,
- * e a frequência, quando a linha veio de um lançamento fixo.
+ * Lista do mês. Cada linha traz o dia, a descrição e, embaixo dela, a
+ * categoria, o tipo e a frequência, quando a linha veio de um fixo.
  */
 export function TransactionList({ transactions, onDelete }: TransactionListProps) {
   if (transactions.length === 0) {
@@ -37,6 +37,17 @@ export function TransactionList({ transactions, onDelete }: TransactionListProps
           <span className="entry-body">
             <span className="entry-description">{transaction.description}</span>
             <span className="entry-meta">
+              {transaction.category_name && (
+                <>
+                  <span
+                    className="category-dot"
+                    style={{ background: transaction.category_color ?? undefined }}
+                    aria-hidden="true"
+                  />
+                  {transaction.category_name}
+                  {" · "}
+                </>
+              )}
               {transaction.kind_label}
               {transaction.frequency_label && (
                 <>

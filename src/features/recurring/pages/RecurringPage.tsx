@@ -81,6 +81,17 @@ export function RecurringPage() {
                 <span className="entry-body">
                   <span className="entry-description">{entry.description}</span>
                   <span className="entry-meta">
+                    {entry.category_name && (
+                      <>
+                        <span
+                          className="category-dot"
+                          style={{ background: entry.category_color ?? undefined }}
+                          aria-hidden="true"
+                        />
+                        {entry.category_name}
+                        {" · "}
+                      </>
+                    )}
                     {entry.kind_label} · <span className="entry-tag">{entry.frequency_label}</span> ·
                     desde {formatDayMonth(entry.start_date)}
                   </span>

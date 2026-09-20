@@ -1,8 +1,0 @@
-.category-dot {
-  flex-shrink: 0;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  /* Anel na superfície, para a cor não encostar no fundo do cartão. */
-  box-shadow: 0 0 0 2px var(--surface);
-}

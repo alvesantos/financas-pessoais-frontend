@@ -9,6 +9,7 @@ import { ApiError, type FieldErrors } from "../../../lib/api-error";
 import { parseMoneyToCents } from "../../../lib/money";
 import { allFrequencies, allKinds, frequencyLabels, kindLabels } from "../../../types/finance";
 import type { Frequency, Kind } from "../../../types/finance";
+import { CategorySelect } from "../../categories/components/CategorySelect";
 import { recurringApi } from "../../recurring/api/recurring.api";
 import { transactionsApi } from "../api/transactions.api";
 
@@ -34,6 +35,7 @@ export function TransactionForm({ defaultDate, onCreated }: TransactionFormProps
   const [kind, setKind] = useState<Kind>("despesa");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(defaultDate ?? todayISO());
+  const [categoryId, setCategoryId] = useState<number | null>(null);
   const [isRecurring, setIsRecurring] = useState(false);
   const [frequency, setFrequency] = useState<Frequency>("mensal");
 
@@ -67,6 +69,7 @@ export function TransactionForm({ defaultDate, onCreated }: TransactionFormProps
           kind,
           frequency,
           start_date: date,
+          category_id: categoryId,
         });
       } else {
         await transactionsApi.create({
@@ -74,6 +77,7 @@ export function TransactionForm({ defaultDate, onCreated }: TransactionFormProps
           amount_cents: amountCents,
           kind,
           occurred_at: date,
+          category_id: categoryId,
         });
       }
 
@@ -105,6 +109,13 @@ export function TransactionForm({ defaultDate, onCreated }: TransactionFormProps
       </div>
 
       <div className="entry-form-row">
+        <CategorySelect
+          kind={kind}
+          value={categoryId}
+          onChange={setCategoryId}
+          error={fieldErrors.category_id}
+        />
+
         <TextField
           label="Descrição (opcional)"
           name="description"
@@ -114,6 +125,9 @@ export function TransactionForm({ defaultDate, onCreated }: TransactionFormProps
           error={fieldErrors.description}
         />
 
+      </div>
+
+      <div className="entry-form-row">
         <TextField
           label={isRecurring ? "Começa em" : "Data"}
           name="date"

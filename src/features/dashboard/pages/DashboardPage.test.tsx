@@ -27,6 +27,9 @@ const painel: Dashboard = {
     saldo_cents: 0,
   })),
   gastos_por_tipo: [{ kind: "despesa", label: "Despesa", total_cents: 200000 }],
+  gastos_por_categoria: [
+    { category_id: 1, label: "Mercado", color: "#aabbcc", total_cents: 200000 },
+  ],
   maior_gasto: null,
 };
 

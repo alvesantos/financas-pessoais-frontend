@@ -12,6 +12,9 @@ export interface RecurringEntry {
   start_date: string;
   end_date: string | null;
   active: boolean;
+  category_id: number | null;
+  category_name: string | null;
+  category_color: string | null;
 }
 
 export interface CreateRecurringInput {
@@ -21,4 +24,5 @@ export interface CreateRecurringInput {
   frequency: Frequency;
   start_date: string;
   end_date?: string | null;
+  category_id: number | null;
 }

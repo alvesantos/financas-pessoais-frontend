@@ -24,6 +24,9 @@ const criado = {
   kind_label: "Despesa",
   occurred_at: "2026-09-20",
   projected: false,
+  category_id: null,
+  category_name: null,
+  category_color: null,
 };
 
 beforeEach(() => {
@@ -110,6 +113,9 @@ describe("TransactionForm", () => {
       start_date: "2026-09-20",
       end_date: null,
       active: true,
+      category_id: null,
+      category_name: null,
+      category_color: null,
     });
 
     renderWithProviders(<TransactionForm defaultDate="2026-09-20" onCreated={vi.fn()} />);
@@ -127,6 +133,7 @@ describe("TransactionForm", () => {
         kind: "despesa",
         frequency: "mensal",
         start_date: "2026-09-20",
+        category_id: null,
       });
     });
 

@@ -17,6 +17,9 @@ export interface Transaction {
   recurring_id?: number;
   frequency?: Frequency;
   frequency_label?: string;
+  category_id: number | null;
+  category_name: string | null;
+  category_color: string | null;
 }
 
 export interface MonthSummary {
@@ -34,4 +37,5 @@ export interface CreateTransactionInput {
   amount_cents: number;
   kind: Kind;
   occurred_at: string;
+  category_id: number | null;
 }

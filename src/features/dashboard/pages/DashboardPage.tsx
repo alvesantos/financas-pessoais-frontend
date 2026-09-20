@@ -5,7 +5,7 @@ import { monthName } from "../../../lib/dates";
 import { formatMoney } from "../../../lib/money";
 import { ApiError } from "../../../lib/api-error";
 import { dashboardApi } from "../api/dashboard.api";
-import { ExpenseByKindChart } from "../components/ExpenseByKindChart";
+import { ExpenseByCategoryChart } from "../components/ExpenseByCategoryChart";
 import { StatTile } from "../components/StatTile";
 import { YearChart } from "../components/YearChart";
 import type { Dashboard } from "../types";
@@ -71,7 +71,7 @@ export function DashboardPage() {
       </Card>
 
       <Card title={`Onde o dinheiro foi em ${monthName(mesAtual).toLowerCase()}`}>
-        <ExpenseByKindChart data={data.gastos_por_tipo} />
+        <ExpenseByCategoryChart data={data.gastos_por_categoria} />
 
         {data.maior_gasto && (
           <p className="dashboard-note">

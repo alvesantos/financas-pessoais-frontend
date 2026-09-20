@@ -16,10 +16,21 @@ export interface MonthTotals {
   saldo_cents: number;
 }
 
-/** Uma barra do gráfico de composição dos gastos. */
+/** Quanto foi gasto em um tipo de lançamento. */
 export interface KindTotal {
   kind: string;
   label: string;
+  total_cents: number;
+}
+
+/**
+ * Uma barra do gráfico de composição dos gastos. `category_id` nulo é o
+ * balde de quem ainda não tem categoria.
+ */
+export interface CategoryTotal {
+  category_id: number | null;
+  label: string;
+  color: string;
   total_cents: number;
 }
 
@@ -33,5 +44,6 @@ export interface Dashboard {
   month: MonthSummary;
   por_mes: MonthTotals[];
   gastos_por_tipo: KindTotal[];
+  gastos_por_categoria: CategoryTotal[];
   maior_gasto: Transaction | null;
 }

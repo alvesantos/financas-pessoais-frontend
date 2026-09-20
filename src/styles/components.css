@@ -559,3 +559,24 @@
   font-variant-numeric: tabular-nums;
   text-transform: lowercase;
 }
+
+/* ------------------------------ ponto da categoria ------------------------- */
+
+.category-dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  margin-right: 5px;
+  border-radius: 50%;
+  vertical-align: baseline;
+  /* Anel na superfície, para a cor não encostar no fundo do cartão. */
+  box-shadow: 0 0 0 2px var(--surface);
+}
+
+/* Na lista de categorias o ponto é o marcador da linha, e fica maior. */
+.entry > .category-dot {
+  width: 12px;
+  height: 12px;
+  margin-right: 0;
+}
