@@ -1,0 +1,5 @@
+/* Ponto de entrada dos estilos globais. Estilos de página ficam ao lado
+   do componente que os usa. */
+@import "./tokens.css";
+@import "./reset.css";
+@import "./components.css";

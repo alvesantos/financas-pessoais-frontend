@@ -1,0 +1,116 @@
+/* ----------------------------------------------------------------
+   Tokens de design — paleta neutra com um único tom de destaque.
+   ---------------------------------------------------------------- */
+:root {
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --surface-muted: #f4f4f2;
+  --border: #e6e6e2;
+  --border-strong: #d4d4cf;
+
+  --text: #16161a;
+  --text-muted: #6b6b73;
+  --text-subtle: #9a9aa3;
+
+  --accent: #1f7a5a;
+  --accent-hover: #196349;
+  --accent-soft: #eaf4f0;
+  --danger: #b4382f;
+  --danger-soft: #fbeceb;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+
+  --shadow-sm: 0 1px 2px rgba(22, 22, 26, 0.05);
+  --shadow: 0 12px 36px -12px rgba(22, 22, 26, 0.14);
+
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e0e10;
+    --surface: #161619;
+    --surface-muted: #1d1d21;
+    --border: #262629;
+    --border-strong: #35353a;
+
+    --text: #f2f2f0;
+    --text-muted: #9c9ca5;
+    --text-subtle: #6c6c75;
+
+    --accent: #3ba17c;
+    --accent-hover: #47b68d;
+    --accent-soft: #14251f;
+    --danger: #e06b60;
+    --danger-soft: #2a1715;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow: 0 16px 44px -14px rgba(0, 0, 0, 0.65);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Estado neutro enquanto a sessão salva é validada. */
+.route-loading {
+  min-height: 100%;
+  background: var(--bg);
+}

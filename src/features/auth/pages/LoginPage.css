@@ -1,0 +1,86 @@
+.auth {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  align-items: center;
+  padding: 48px var(--space-4) var(--space-6);
+  gap: var(--space-6);
+  /* Brilho discreto atrás do cartão, no tom de destaque. */
+  background:
+    radial-gradient(900px 420px at 50% -10%, var(--accent-soft), transparent 70%),
+    var(--bg);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 40px var(--space-8) var(--space-8);
+  animation: card-in 0.5s var(--ease) both;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+
+.auth-header .logo {
+  margin-bottom: 10px;
+}
+
+.auth-header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.auth-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.auth-form .btn {
+  margin-top: var(--space-1);
+}
+
+.auth-footer {
+  margin-top: var(--space-6);
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.auth-legal {
+  font-size: 12.5px;
+  color: var(--text-subtle);
+}
+
+@media (max-width: 420px) {
+  .auth-card {
+    padding: var(--space-8) 22px 26px;
+    border-radius: var(--radius);
+  }
+}
