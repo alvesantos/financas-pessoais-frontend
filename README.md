@@ -34,6 +34,10 @@ npm run dev       # servidor de desenvolvimento
 npm run build     # typecheck + build de produção em dist/
 npm run preview   # serve o build
 npm run lint      # oxlint
+npm test          # testes unitários (Vitest)
+npm run test:watch
+npm run test:coverage
+npm run test:e2e  # testes e2e (Playwright)
 ```
 
 ## Estrutura
@@ -85,6 +89,35 @@ página → componente → hook → api da feature → httpClient → API Go
 Nenhum componente chama `fetch` direto. O `httpClient` concentra a URL base,
 o cabeçalho `Authorization` e a conversão de falha em `ApiError`; a camada
 `features/*/api` traduz isso nas rotas daquele domínio.
+
+## Testes
+
+**Unitários** (Vitest + Testing Library), ao lado do arquivo testado. Testam
+o que o usuário vê, não o estado interno; só a camada `features/*/api` é
+mockada. `src/test/render.tsx` renderiza com o router e o `AuthProvider`
+reais.
+
+```bash
+npm test
+```
+
+**E2e** (Playwright), em `e2e/`. Rodam contra a aplicação e a API de verdade.
+O Vite sobe sozinho; a API precisa estar no ar antes:
+
+```bash
+cd ../backend && make db-up && make run   # em outro terminal
+npm run test:e2e
+```
+
+Na primeira vez, instale o navegador e as bibliotecas do sistema:
+
+```bash
+npx playwright install chromium
+sudo npx playwright install-deps chromium
+```
+
+Cobrem cadastro, login, erro por campo, erro geral, persistência da sessão
+ao recarregar, redirecionamento de visitante e logout.
 
 ## Erros
 

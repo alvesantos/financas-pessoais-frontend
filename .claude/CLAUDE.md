@@ -25,9 +25,11 @@ considere uma funcionalidade pronta sem os dois.
   Cubra o fluxo completo da funcionalidade e os caminhos de erro.
 - Cubra sempre: caminho feliz, erro de validação por campo, erro geral do
   formulário e o estado de carregamento.
-- Nenhuma das duas ferramentas está instalada ainda. Ao escrever o primeiro
-  teste, instale e adicione os scripts `test` e `test:e2e` ao `package.json`.
-- Rode `npm run lint` e `npm run build` antes de commitar.
+- Unitários ficam ao lado do arquivo testado (`AuthForm.test.tsx`); e2e ficam
+  em `e2e/`. Use `src/test/render.tsx` para renderizar com os providers reais.
+- Os testes e2e precisam da API no ar (`cd ../backend && make db-up && make run`).
+- Rode `npm test`, `npm run lint` e `npm run build` antes de commitar. Não
+  commite com teste vermelho.
 
 ## Comandos
 
@@ -36,6 +38,10 @@ npm run dev       # :5173
 npm run build     # typecheck + build
 npm run preview   # serve o build
 npm run lint      # oxlint
+npm test          # unitários (Vitest)
+npm run test:watch
+npm run test:coverage
+npm run test:e2e  # Playwright — exige a API no ar
 ```
 
 ## Estrutura
