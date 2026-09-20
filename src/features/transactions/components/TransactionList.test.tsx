@@ -224,6 +224,42 @@ describe("TransactionList", () => {
     ).toBeInTheDocument();
   });
 
+  it("oferece marcar a projeção de um fixo como paga", async () => {
+    const user = userEvent.setup();
+    const onMarkPaid = vi.fn();
+    const pendente = { ...projetado, paid: false };
+
+    render(
+      <TransactionList transactions={[pendente]} onDelete={vi.fn()} onEdit={vi.fn()} onMarkPaid={onMarkPaid} />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Marcar Academia como pago" }));
+
+    expect(onMarkPaid).toHaveBeenCalledWith(pendente);
+  });
+
+  it("oferece marcar a parcela de uma dívida como paga", async () => {
+    const user = userEvent.setup();
+    const onMarkPaid = vi.fn();
+
+    render(
+      <TransactionList transactions={[parcela]} onDelete={vi.fn()} onEdit={vi.fn()} onMarkPaid={onMarkPaid} />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Marcar Empréstimo como pago" }));
+
+    expect(onMarkPaid).toHaveBeenCalledWith(parcela);
+  });
+
+  it("projeção continua sem editar nem apagar", () => {
+    render(
+      <TransactionList transactions={[parcela]} onDelete={vi.fn()} onEdit={vi.fn()} onMarkPaid={vi.fn()} />,
+    );
+
+    expect(screen.queryByRole("button", { name: /Editar/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Apagar/ })).not.toBeInTheDocument();
+  });
+
   it("explica o estado vazio em vez de só mostrar nada", () => {
     render(<TransactionList transactions={[]} onDelete={vi.fn()} onEdit={vi.fn()} onMarkPaid={vi.fn()} />);
 

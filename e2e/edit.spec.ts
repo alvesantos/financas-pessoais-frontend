@@ -71,6 +71,38 @@ test.describe("editar", () => {
   });
 });
 
+test.describe("marcar ocorrência como paga", () => {
+  test("a parcela de um fixo vira lançamento de verdade", async ({ page }) => {
+    await cadastrar(page);
+    await irParaFixos(page);
+
+    const hoje = new Date();
+    const dia = String(Math.min(hoje.getDate(), 28)).padStart(2, "0");
+    const inicio = `${hoje.getFullYear()}-${String(hoje.getMonth() + 1).padStart(2, "0")}-${dia}`;
+
+    await page.getByLabel("Valor").fill("159,90");
+    await page.getByLabel("Descrição (opcional)").fill("Academia");
+    await page.getByLabel("Frequência").selectOption("mensal");
+    await page.getByLabel("Começa em").fill(inicio);
+    await page.getByRole("button", { name: "Adicionar fixo" }).click();
+    await expect(page.locator(".entry", { hasText: "Academia" })).toBeVisible();
+
+    await irParaLancamentos(page);
+
+    const linha = page.locator(".entry", { hasText: "Academia" });
+    await expect(linha).toContainText("Fixo mensal");
+
+    await page.getByRole("button", { name: "Marcar Academia como pago" }).click();
+
+    // Uma linha só: a projeção some quando a ocorrência vira lançamento.
+    await expect(page.locator(".entry", { hasText: "Academia" })).toHaveCount(1);
+    await expect(page.getByRole("button", { name: "Editar Academia" })).toBeVisible();
+
+    const atual = page.locator(".balance", { hasText: "Saldo atual" });
+    await expect(atual).toContainText("159,90");
+  });
+});
+
 test.describe("marcar como pago", () => {
   test("um clique tira o lançamento de pendente e soma no saldo atual", async ({ page }) => {
     await cadastrar(page);

@@ -1,5 +1,10 @@
 import { httpClient } from "../../../lib/http-client";
-import type { CreateTransactionInput, MonthSummary, Transaction } from "../types";
+import type {
+  CreateTransactionInput,
+  MonthSummary,
+  PayOccurrenceInput,
+  Transaction,
+} from "../types";
 
 function monthQuery(year: number, month: number): string {
   return `year=${year}&month=${month}`;
@@ -18,6 +23,9 @@ export const transactionsApi = {
 
   update: (id: number, input: CreateTransactionInput) =>
     httpClient.put<Transaction>(`/transactions/${id}`, { body: input }),
+
+  payOccurrence: (input: PayOccurrenceInput) =>
+    httpClient.post<Transaction>("/transactions/occurrence", { body: input }),
 
   remove: (id: number) => httpClient.delete<void>(`/transactions/${id}`),
 };

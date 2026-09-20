@@ -99,11 +99,28 @@ export function TransactionList({
           </span>
 
           {transaction.projected ? (
-            // Projeções não existem como linha: só somem tirando a origem.
-            <span
-              className="entry-action-placeholder"
-              title={transaction.debt_id ? "Parcela de uma dívida" : "Gerado por um lançamento fixo"}
-            />
+            // Projeção não tem linha para editar nem apagar, mas pode ser
+            // marcada como paga: aí ela vira linha de verdade.
+            <span className="entry-actions">
+              {!transaction.paid && (
+                <IconButton
+                  icon="confirmar"
+                  label={
+                    isIncome(transaction.kind)
+                      ? `Marcar ${transaction.description} como recebido`
+                      : `Marcar ${transaction.description} como pago`
+                  }
+                  confirm
+                  onClick={() => onMarkPaid(transaction)}
+                />
+              )}
+              <span
+                className="entry-action-placeholder"
+                title={
+                  transaction.debt_id ? "Parcela de uma dívida" : "Gerado por um lançamento fixo"
+                }
+              />
+            </span>
           ) : (
             <span className="entry-actions">
               {!transaction.paid && (

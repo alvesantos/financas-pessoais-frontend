@@ -27,13 +27,30 @@ export function TransactionsPage() {
   }
 
   /**
-   * Marca um lançamento como pago sem abrir o formulário. A API tem só o PUT
-   * inteiro, então os outros campos vão de volta como estão.
+   * Marca como pago sem abrir o formulário.
+   *
+   * Projeção não tem linha no banco: marcar uma grava a ocorrência, e aí a
+   * projeção daquela data para de aparecer. Lançamento já gravado só troca
+   * a marcação, e como a API tem o PUT inteiro, os outros campos voltam
+   * como estão.
    */
   async function handleMarkPaid(transaction: Transaction) {
     setDeleteError("");
 
     try {
+      if (transaction.projected) {
+        const origem = transaction.debt_id
+          ? { origin: "divida" as const, origin_id: transaction.debt_id }
+          : { origin: "fixo" as const, origin_id: transaction.recurring_id! };
+
+        await transactionsApi.payOccurrence({
+          ...origem,
+          occurred_at: transaction.occurred_at,
+        });
+        reload();
+        return;
+      }
+
       await transactionsApi.update(transaction.id, {
         description: transaction.description,
         amount_cents: transaction.amount_cents,

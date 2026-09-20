@@ -27,6 +27,15 @@ export interface Transaction {
   debt_id?: number;
   installment_number?: number;
   installments_total?: number;
+  /** Id do fixo que originou a projeção. */
+  recurring_origin_id?: number;
+}
+
+/** Marca uma ocorrência projetada como paga, gravando-a de verdade. */
+export interface PayOccurrenceInput {
+  origin: "fixo" | "divida";
+  origin_id: number;
+  occurred_at: string;
 }
 
 export interface MonthSummary {
